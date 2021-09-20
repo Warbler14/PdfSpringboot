@@ -13,19 +13,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ResourceLoader;
 
+import com.lotus.jewel.booker.pdf.controller.PdfController;
 import com.lotus.jewel.booker.util.Util;
 
 @Configuration
 @Lazy
 @MapperScan(basePackages = {"com.lotus.jewel.booker"})
 public class SqlSessionConfig {
-
+	
+	private final static Logger logger = LoggerFactory.getLogger(SqlSessionConfig.class);
 	
 	@Autowired
 	private ConfigProperties configProperties;
@@ -36,12 +40,18 @@ public class SqlSessionConfig {
 	@PostConstruct
 	private void database() throws IOException {
 		String dbBackupPath = configProperties.getFileConfig().getDbBackupPath();
+		String dbFilePath = configProperties.getFileConfig().getDbPath();
 		
-		File backup = new File("./word.db");
+		File dbFile = new File(dbFilePath);
+		
+		if(dbFile.exists()) {
+			return;
+		}
+		
+		logger.info("Generate db file (" + dbFilePath + ")");
 		
 		try (InputStream io = resourceLoader.getResource(dbBackupPath).getInputStream()){
-			
-			Util.copyInputStreamToFile(io, backup);
+			Util.copyInputStreamToFile(io, dbFile);
 			
 		} catch (FileNotFoundException e) {
 	        throw e;
