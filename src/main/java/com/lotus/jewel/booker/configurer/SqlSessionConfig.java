@@ -17,6 +17,46 @@ import org.springframework.context.annotation.Lazy;
 @MapperScan(basePackages = {"com.lotus.jewel.booker"})
 public class SqlSessionConfig {
 
+//	
+//	@Autowired
+//	private FileProperties fileProperties;
+//	
+//	@Autowired
+//	private ResourceLoader resourceLoader;
+	
+
+	
+//	@PostConstruct
+//	private void database() throws IOException {
+//		String dbBackupPath = fileProperties.getDbBackupPath();
+//		
+//		File backup = new File("./word.db");
+//		
+//		try (InputStream io = resourceLoader.getResource(dbBackupPath).getInputStream()){
+//			
+//			Util.copyInputStreamToFile(io, backup);
+//			
+//		} catch (FileNotFoundException e) {
+//	        throw e;
+//	    } catch (IOException e) {
+//	    	throw e;
+//	    }
+//		
+//		
+//		
+//		
+//		
+//		String dbPath = fileProperties.getDbPath();
+//		File dbFile = new File(dbPath);
+//		
+//		if(! dbFile.exists()) {
+//			File in = backup;
+//			File out = new File(dbPath);
+//			FileCopyUtils.copy(in, out);
+//		}
+//		
+//		
+//	}
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() {
@@ -39,4 +79,5 @@ public class SqlSessionConfig {
 	public SqlSession sqliteSession() {
 		return sqlSessionFactory().openSession(true);
 	}
+	
 }
