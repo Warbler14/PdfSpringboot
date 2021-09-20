@@ -1,5 +1,7 @@
-package com.example.spring.pdf.controller;
+package com.lotus.jewel.booker.pdf.controller;
 
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.spring.pdf.model.Pdf;
-import com.example.spring.pdf.service.PdfService;
+import com.lotus.jewel.booker.pdf.model.Word;
+import com.lotus.jewel.booker.pdf.service.PdfService;
+
 
 
 @RestController
@@ -33,6 +36,23 @@ public class PdfController {
 		
 		pdfService.readPdf(filePath);
 		
+		
+		return mav;
+	}
+	
+	@RequestMapping("/test02")
+	public ModelAndView test02( Model model) {
+		ModelAndView mav = new ModelAndView(SUB_PATH + "test02");
+		
+		List<Word> wordList = null;
+		try {
+			wordList = pdfService.getAll();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("wordList", wordList);
 		
 		return mav;
 	}

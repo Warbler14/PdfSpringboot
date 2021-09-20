@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <environments default="">
-    <environment id="">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="org.sqlite.JDBC"/>
-        <property name="url" value="jdbc:sqlite:/Users/kook/workspaces/webserver/data/test.db"/>
-        <!-- 
-        <property name="url" value="jdbc:sqlite:./test.db"/>
-         -->
-      </dataSource>
-    </environment>
-  </environments>
+	<properties resource="config/db.properties"/>
 
- 
-  <mappers>
-  	<!-- 아래 설정으로 매퍼 주입하면, @MapperScan 과 충돌하는지 확인 필요  -->
-     
-     <mapper resource="com/example/spring/dbTest/mapper/TestMapper.xml"/>
-      
-  </mappers>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<environments default="">
+	  <environment id="">
+	    <transactionManager type="JDBC"/>
+	    <dataSource type="POOLED">
+	      <property name="driver" value="${driver}"/>
+	      <property name="url" value="${url}"/>
+	      <!-- 
+	      <property name="url" value="jdbc:sqlite:./test.db"/>
+	       -->
+	    </dataSource>
+	  </environment>
+	</environments>
+
+	<mappers>
+	   <mapper resource="com/lotus/jewel/booker/pdf/mapper/WordMapper.xml"/>
+	    
+	</mappers>
 
 </configuration>

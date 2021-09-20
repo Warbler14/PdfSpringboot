@@ -1,4 +1,4 @@
-package com.example.spring.pdf.model;
+package com.lotus.jewel.booker.pdf.model;
 
 import java.io.Serializable;
 

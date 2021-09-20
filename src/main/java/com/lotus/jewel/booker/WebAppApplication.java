@@ -1,4 +1,4 @@
-package com.example.spring;
+package com.lotus.jewel.booker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 
 @EnableAutoConfiguration(exclude = { DataSourceTransactionManagerAutoConfiguration.class, DataSourceAutoConfiguration.class })
 @SpringBootApplication
-public class PdfWebAppApplication {
+public class WebAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PdfWebAppApplication.class, args);
+		SpringApplication.run(WebAppApplication.class, args);
 	}
 
 }

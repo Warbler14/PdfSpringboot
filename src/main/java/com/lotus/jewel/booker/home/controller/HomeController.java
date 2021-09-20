@@ -1,4 +1,4 @@
-package com.example.spring.home.controller;
+package com.lotus.jewel.booker.home.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
