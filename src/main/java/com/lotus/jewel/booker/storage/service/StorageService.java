@@ -1,6 +1,8 @@
 package com.lotus.jewel.booker.storage.service;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -25,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lotus.jewel.booker.word.model.Word;
 import com.lotus.jewel.booker.word.service.WordService;
 
-
 @Service
 public class StorageService {
 
@@ -35,9 +36,6 @@ public class StorageService {
 	public final String fileSeparator = FileSystems.getDefault().getSeparator();
 
 	private final String savePath = System.getProperty("user.dir") + fileSeparator + "storage";
-
-	@Autowired
-	private WordService wordService;
 	
 	@PostConstruct
 	public void init() {
@@ -50,25 +48,11 @@ public class StorageService {
 		}
 	}
 	
-	// 데이터를 db 에 저장하면, 로컬에 저장한 파일과 불일치 발생가능
-	// - 모든 데이터를 db 에 저장, db 파일이 커지므로 안하는게 좋겠
-	// - 데이터를 db 에 저장하지 않고 임시 저장후 삭
+	@Autowired
+	private WordService wordService;
+	
 	
 	public List<String> getResourceList(String extention) {
-		
-		List<Word> wordList = null;
-		try {
-			wordList = wordService.getAll();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		for (Word word : wordList) {
-			logger.debug(word.toString());
-		}
-		
-		
 		
 		File fileStore = new File(savePath);
 		
@@ -109,6 +93,33 @@ public class StorageService {
 		}
         
         return saveFile;
+	}
+	
+	public void loadDataFromFile(String fileName) {
+		
+		String filePath = savePath  + fileSeparator + fileName;
+		BufferedReader reader;
+		
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
+			String line = reader.readLine();
+			while (line != null) {
+				line = reader.readLine();
+				
+				String [] words = line.split(" ");
+				for(String text : words) {
+					Word word = new Word();
+					word.setFileId(fileName);
+					word.setWord(text);
+					
+					wordService.putWords(word);
+				}
+			}
+			reader.close();
+		} catch (Exception e) {
+			
+		}
+		
 	}
 	
 	public Resource getResource(String fileName) throws IOException {

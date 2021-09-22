@@ -6,10 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.lotus.jewel.booker.word.model.Word;
 
-
-
 @Mapper
 public interface WordMapper {
 
 	public List<Word> selectAll();
+	
+	public Word selectWord(Word word);
+	
+	public int insertWord(Word word);
+	
+	public int updateWord(Word word);
 }

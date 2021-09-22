@@ -3,16 +3,53 @@
 
 <mapper namespace="com.lotus.jewel.booker.word.mapper.WordMapper">
 
-  <select id="selectAll" resultType="com.lotus.jewel.booker.word.model.Word">
-    select
-		file_id
-	    , word
-	    , referance_count
-	    , regist_datetime
-	    , modify_datetime
-    from word
-  </select>
+	<select id="selectAll" resultType="com.lotus.jewel.booker.word.model.Word">
+		select
+			file_id
+			, word
+			, referance_count
+			, regist_datetime
+			, modify_datetime
+		from word
+	</select>
 
+	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.Word">
+		select
+			file_id
+			, word
+			, referance_count
+			, regist_datetime
+			, modify_datetime
+		from word
+		where file_id = #{fileId}
+		  and word = #{word}
+	</select>
+	
+
+	<insert id="insertWord">
+		insert into word (
+			file_id
+			, word
+			, referance_count
+			, regist_datetime
+			, modify_datetime
+		) values (
+			#{fileId}
+			, #{word}
+			, #{referanceCount}
+			, #{registDatetime}
+			, #{modifyDatetime}
+		)
+	</insert>
+	
+	<update id="updateWord">
+		update word set
+			referance_count = #{referanceCount}
+			, modify_datetime = #{modifyDatetime}
+		where file_id = #{fileId}
+		  and word = #{word}
+	</update>
+	
  
 
 
