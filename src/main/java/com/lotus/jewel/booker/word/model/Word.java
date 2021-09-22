@@ -1,4 +1,4 @@
-package com.lotus.jewel.booker.pdf.model;
+package com.lotus.jewel.booker.word.model;
 
 import java.io.Serializable;
 

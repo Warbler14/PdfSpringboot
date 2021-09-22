@@ -34,7 +34,7 @@
 		</rollingPolicy>
 	</appender>
 
-	<logger name="com.example.spring" level="DEBUG">
+	<logger name="com.lotus.jewel" level="DEBUG">
 		<appender-ref ref="ROLLING" />
 	</logger>
 

@@ -18,7 +18,7 @@
 	</environments>
 
 	<mappers>
-	   <mapper resource="com/lotus/jewel/booker/pdf/mapper/WordMapper.xml"/>
+	   <mapper resource="com/lotus/jewel/booker/word/mapper/WordMapper.xml"/>
 	    
 	</mappers>
 

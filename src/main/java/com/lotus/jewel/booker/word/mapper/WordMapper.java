@@ -1,10 +1,10 @@
-package com.lotus.jewel.booker.pdf.mapper;
+package com.lotus.jewel.booker.word.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.lotus.jewel.booker.pdf.model.Word;
+import com.lotus.jewel.booker.word.model.Word;
 
 
 

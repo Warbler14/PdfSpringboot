@@ -2,22 +2,16 @@ package com.lotus.jewel.booker.pdf.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lotus.jewel.booker.pdf.mapper.WordMapper;
-import com.lotus.jewel.booker.pdf.model.Word;
 
 
 @Service
 public class PdfService {
 
-	@Autowired
-	private WordMapper wordMapper;
 	
 	public void readPdf(String path) {
 		
@@ -53,8 +47,4 @@ public class PdfService {
 		}
 	}
 	
-	public List<Word> getAll() throws Exception {
-		List<Word> resultList = wordMapper.selectAll();
-		return resultList;
-	}
 }

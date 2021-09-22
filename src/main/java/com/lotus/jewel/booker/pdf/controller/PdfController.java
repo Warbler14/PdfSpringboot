@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lotus.jewel.booker.pdf.model.Word;
 import com.lotus.jewel.booker.pdf.service.PdfService;
+import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.service.WordService;
 
 
 
@@ -26,6 +27,9 @@ public class PdfController {
 	
 	@Autowired
 	private PdfService pdfService;
+	
+	@Autowired
+	private WordService wordService;
 	
 	@RequestMapping("/test01")
 	public ModelAndView test01( Model model) {
@@ -46,7 +50,7 @@ public class PdfController {
 		
 		List<Word> wordList = null;
 		try {
-			wordList = pdfService.getAll();
+			wordList = wordService.getAll();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
