@@ -48,7 +48,6 @@ public class WordController {
 		word.calcPage();
 		
 		
-//		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", word.getPaging());
 		
 		try {

@@ -2,13 +2,13 @@ package com.lotus.jewel.booker.model;
 
 public class PagingForSqlite {
 	
-	private int cntPage = 5;
+	private int rangeSize = 5;	//page count for block
 	
-	private int cntPerPage = 10;
+	private int pageSize = 10;  //list for page
 	
 	private int total;
 
-	private int startPage, nowPage = 1, endPage, lastPage;
+	private int startPage, currentPage = 1, endPage, lastPage;  //nowPage
 	
 	private int start;
 	
@@ -16,31 +16,31 @@ public class PagingForSqlite {
 	
 	public PagingForSqlite() {}
 	
-	public PagingForSqlite(int total, int nowPage, int cntPerPage) {
+	public PagingForSqlite(int total, int currentPage, int pageSize) {
 		this.total = total;
-		this.nowPage = nowPage;
-		this.cntPerPage = cntPerPage;
+		this.currentPage = currentPage;
+		this.pageSize = pageSize;
 		calcPage();
 	}
 	
 	public void calcPage() {
-		calcLastPage(total, cntPerPage);
-		calcStartEndPage(nowPage, cntPage, lastPage);
-		calcStartEnd(nowPage, cntPerPage);
+		calcLastPage(total, pageSize);
+		calcStartEndPage(currentPage, rangeSize, lastPage);
+		calcStartEnd(currentPage, pageSize);
 	}
 	
-	public void calcLastPage(int total, int cntPerPage) {
-		this.lastPage = (int) Math.ceil((double)total / (double)cntPerPage);
+	public void calcLastPage(int total, int pageSize) {
+		this.lastPage = (int) Math.ceil((double)total / (double)pageSize);
 	}
 	
-	public void calcStartEndPage(int nowPage, int cntPage, int lastPage) {
-		int endPage = ((int) Math.ceil((double)nowPage / (double)cntPage)) * cntPage;
+	public void calcStartEndPage(int currentPage, int rangeSize, int lastPage) {
+		int endPage = ((int) Math.ceil((double)currentPage / (double)rangeSize)) * rangeSize;
 		if(lastPage < endPage) {
 			endPage = lastPage;
 		}
 		this.endPage = endPage;
 		
-		int startPage = this.endPage - cntPage + 1;
+		int startPage = this.endPage - rangeSize + 1;
 		if(startPage < -1) {
 			startPage = 1;
 		}
@@ -51,25 +51,25 @@ public class PagingForSqlite {
 		return this;
 	}
 	
-	public void calcStartEnd(int nowPage, int cntPerPage) {
-		this.offset = cntPerPage;
-		this.start = (nowPage -1) * cntPerPage;
+	public void calcStartEnd(int currentPage, int pageSize) {
+		this.offset = pageSize;
+		this.start = (currentPage -1) * pageSize;
 	}
 
-	public int getCntPage() {
-		return cntPage;
+	public int getRangeSize() {
+		return rangeSize;
 	}
 
-	public void setCntPage(int cntPage) {
-		this.cntPage = cntPage;
+	public void setRangeSize(int rangeSize) {
+		this.rangeSize = rangeSize;
 	}
 
-	public int getCntPerPage() {
-		return cntPerPage;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setCntPerPage(int cntPerPage) {
-		this.cntPerPage = cntPerPage;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public int getTotal() {
@@ -88,12 +88,12 @@ public class PagingForSqlite {
 		this.startPage = startPage;
 	}
 
-	public int getNowPage() {
-		return nowPage;
+	public int getCurrentPage() {
+		return currentPage;
 	}
 
-	public void setNowPage(int nowPage) {
-		this.nowPage = nowPage;
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
 	}
 
 	public int getEndPage() {
