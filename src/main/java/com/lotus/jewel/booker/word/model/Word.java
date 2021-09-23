@@ -2,7 +2,9 @@ package com.lotus.jewel.booker.word.model;
 
 import java.io.Serializable;
 
-public class Word implements Serializable{
+import com.lotus.jewel.booker.model.PagingForSqlite;
+
+public class Word extends PagingForSqlite implements Serializable{
 
 	private static final long serialVersionUID = -6360119559242183023L;
 	
@@ -16,6 +18,10 @@ public class Word implements Serializable{
 	
 	private String modifyDatetime;
 
+	public Word() {
+		super();
+	}
+	
 	public String getFileId() {
 		return fileId;
 	}
@@ -59,6 +65,8 @@ public class Word implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
 
 	@Override
 	public String toString() {

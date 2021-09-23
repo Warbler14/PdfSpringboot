@@ -11,6 +11,10 @@ public interface WordMapper {
 
 	public List<Word> selectAll();
 	
+	public List<Word> selectWordListForPage(Word word);
+	
+	public int countWord();
+	
 	public Word selectWord(Word word);
 	
 	public int insertWord(Word word);

@@ -21,6 +21,15 @@ public class WordService {
 		return resultList;
 	}
 	
+	public List<Word> getWordListForPage(Word word) throws Exception {
+		List<Word> resultList = wordMapper.selectWordListForPage(word);
+		return resultList;
+	}
+	
+	public int getCountWord() {
+		return wordMapper.countWord();
+	}
+	
 	public int putWords(Word word) {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

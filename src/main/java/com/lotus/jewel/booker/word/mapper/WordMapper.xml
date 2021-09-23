@@ -13,6 +13,31 @@
 		from word
 	</select>
 
+	<select id="selectWordListForPage" resultType="com.lotus.jewel.booker.word.model.Word">
+		select
+			file_id
+			, word
+			, referance_count
+			, regist_datetime
+			, modify_datetime
+		from word
+		<where>
+			<if test="fileId != null">
+				and file_id = #{fileId}
+			</if>
+			<if test="word != null">
+				and word = #{word}
+			</if>
+		</where>
+		order by file_id, word
+		limit #{start}, #{offset}
+	</select>
+	
+	<select id="countWord" resultType="int">
+		select count(*)
+		from word
+	</select>
+	
 	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.Word">
 		select
 			file_id
@@ -23,9 +48,9 @@
 		from word
 		where file_id = #{fileId}
 		  and word = #{word}
+		order by file_id, word
 	</select>
-	
-
+		
 	<insert id="insertWord">
 		insert into word (
 			file_id
@@ -50,7 +75,4 @@
 		  and word = #{word}
 	</update>
 	
- 
-
-
 </mapper>

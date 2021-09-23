@@ -1,8 +1,6 @@
 package com.lotus.jewel.booker.storage.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lotus.jewel.booker.response.Result;
 import com.lotus.jewel.booker.storage.service.StorageService;
-import com.lotus.jewel.booker.word.model.Word;
 import com.lotus.jewel.booker.word.service.WordService;
 
 
@@ -75,9 +71,6 @@ public class StorageController {
 		
 		storageService.saveResource(file);
 		
-		// save to db
-		
-		
 		response.sendRedirect("/storage/file");
 	}
 	
@@ -113,21 +106,4 @@ public class StorageController {
 		return new Result<Map<String, String>>(test);
 	}
 	
-	@GetMapping("/putWord")
-	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
-		
-		String fileId = reqest.getParameter("fileId");
-		String text = reqest.getParameter("text");
-		
-		Word word = new Word();
-		word.setFileId(fileId);
-		word.setWord(text);
-		
-		wordService.putWords(word);
-		
-		Map<String, String> test = new HashMap<>();
-		test.put("wod", word.toString());
-		
-		return new Result<Map<String, String>>(test);
-	}
 }
