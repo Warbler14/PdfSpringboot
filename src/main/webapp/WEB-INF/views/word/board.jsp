@@ -25,13 +25,17 @@
 		<div class="center">
 			<table border="1">
 			    <tr>
-			        <td>file</td>
+			    	<td>header</td>
 			        <td>word</td>
+			        <td>lank</td>
+			        <td>difficulty</td>
 			    </tr>
 			    <c:forEach var="word" items="${wordList}">
 			    <tr>
-			        <td><c:out value="${word.fileId}"/></td>
-			         <td><c:out value="${word.word}"/></td>
+			    	<td><c:out value="${word.header}"/></td>
+			        <td><c:out value="${word.word}"/></td>
+			        <td><c:out value="${word.lank}"/></td>
+			        <td><c:out value="${word.difficulty}"/></td>
 			    </tr>  
 			    </c:forEach>
 			</table>
@@ -57,7 +61,7 @@
 		</div>
 	</div>
 
-<script type="text/javascript" src="/js/jquery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
 

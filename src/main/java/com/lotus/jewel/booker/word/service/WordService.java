@@ -30,6 +30,24 @@ public class WordService {
 		return wordMapper.countWord();
 	}
 	
+	public int addWords(Word word) {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String datetime = sdf.format(cal.getTime());
+		
+		word.setModifyDatetime(datetime);
+		
+		Word savedWord = wordMapper.selectWord(word);
+		if(savedWord == null) {
+			word.setRegistDatetime(datetime);
+			word.setLank(1);
+			word.setDifficulty(1);
+			
+			return wordMapper.insertWord(word);
+		}
+		return 0;
+	}
+	
 	public int putWords(Word word) {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -39,18 +57,15 @@ public class WordService {
 		
 		Word savedWord = wordMapper.selectWord(word);
 		if(savedWord == null) {
-			word.setReferanceCount(1);
 			word.setRegistDatetime(datetime);
+			word.setLank(1);
+			word.setDifficulty(1);
 			
 			return wordMapper.insertWord(word);
 		}
 		
-		int referanceCount = savedWord.getReferanceCount();
-		word.setReferanceCount(referanceCount + 1);
-		
+		word.setModifyDatetime(datetime);
 		return wordMapper.updateWord(word);
-		
-		
 	}
 	
 }

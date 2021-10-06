@@ -66,11 +66,9 @@ public class WordController {
 	@GetMapping("/putWord")
 	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
 		
-		String fileId = reqest.getParameter("fileId");
 		String text = reqest.getParameter("text");
 		
 		Word word = new Word();
-		word.setFileId(fileId);
 		word.setWord(text);
 		
 		wordService.putWords(word);

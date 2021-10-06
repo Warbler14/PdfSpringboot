@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 
@@ -100,24 +102,47 @@ public class StorageService {
 		String filePath = savePath  + fileSeparator + fileName;
 		BufferedReader reader;
 		
+		Pattern pattern = Pattern.compile("^[a-zA-Z]*$");
+		
 		try {
 			reader = new BufferedReader(new FileReader(filePath));
 			String line = reader.readLine();
+			
+			long successCount = 0;
+			long failCount = 0;
 			while (line != null) {
 				line = reader.readLine();
+				if(line == null) {
+					continue;
+				}
 				
 				String [] words = line.split(" ");
 				for(String text : words) {
+					if(!StringUtils.hasLength(text)) {
+						continue;
+					}
+					
+					Matcher matcher = pattern.matcher(text);
+					if(!matcher.find()) {
+						continue;
+					}
+					
 					Word word = new Word();
-					word.setFileId(fileName);
 					word.setWord(text);
 					
-					wordService.putWords(word);
+					int result = wordService.addWords(word);
+					if(result == 1) {
+						successCount++;
+					} else {
+						failCount += result;
+					}
 				}
 			}
+			logger.info("successCount : " + successCount + ", failCount : " + failCount);
+			
 			reader.close();
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}

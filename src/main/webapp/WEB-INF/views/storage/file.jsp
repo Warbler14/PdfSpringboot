@@ -34,8 +34,12 @@
 		</table>
 	</div>
 
-<script type="text/javascript" src="/js/jquery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function(){
+	
+	});
+	
 
 	function loadData(fileName) {
 	  $.ajax({

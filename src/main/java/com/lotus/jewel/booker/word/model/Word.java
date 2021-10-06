@@ -2,17 +2,21 @@ package com.lotus.jewel.booker.word.model;
 
 import java.io.Serializable;
 
+import org.springframework.util.StringUtils;
+
 import com.lotus.jewel.booker.model.PagingForSqlite;
 
 public class Word extends PagingForSqlite implements Serializable{
 
 	private static final long serialVersionUID = -6360119559242183023L;
-	
-	private String fileId;
-	
+
 	private String word;
 	
-	private Integer referanceCount;
+	private Character header;
+	
+	private Integer lank;
+	
+	private Integer difficulty;
 	
 	private String registDatetime;
 	
@@ -21,14 +25,6 @@ public class Word extends PagingForSqlite implements Serializable{
 	public Word() {
 		super();
 	}
-	
-	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
-	}
 
 	public String getWord() {
 		return word;
@@ -36,14 +32,37 @@ public class Word extends PagingForSqlite implements Serializable{
 
 	public void setWord(String word) {
 		this.word = word;
+		setHeader();
 	}
 
-	public Integer getReferanceCount() {
-		return referanceCount;
+	public Character getHeader() {
+		return header;
 	}
 
-	public void setReferanceCount(Integer referanceCount) {
-		this.referanceCount = referanceCount;
+	public void setHeader(Character header) {
+		this.header = header;
+	}
+	
+	public void setHeader() {
+		if(StringUtils.hasLength(word)) {
+			header = Character.toUpperCase(word.charAt(0));
+		}
+	}
+
+	public Integer getLank() {
+		return lank;
+	}
+
+	public void setLank(Integer lank) {
+		this.lank = lank;
+	}
+
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	public String getRegistDatetime() {
@@ -62,21 +81,17 @@ public class Word extends PagingForSqlite implements Serializable{
 		this.modifyDatetime = modifyDatetime;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Word [fileId=");
-		builder.append(fileId);
-		builder.append(", word=");
+		builder.append("Word [word=");
 		builder.append(word);
-		builder.append(", referanceCount=");
-		builder.append(referanceCount);
+		builder.append(", header=");
+		builder.append(header);
+		builder.append(", lank=");
+		builder.append(lank);
+		builder.append(", difficulty=");
+		builder.append(difficulty);
 		builder.append(", registDatetime=");
 		builder.append(registDatetime);
 		builder.append(", modifyDatetime=");
@@ -84,5 +99,5 @@ public class Word extends PagingForSqlite implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
 }

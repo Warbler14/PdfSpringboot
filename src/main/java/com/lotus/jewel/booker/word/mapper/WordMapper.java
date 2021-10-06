@@ -20,4 +20,6 @@ public interface WordMapper {
 	public int insertWord(Word word);
 	
 	public int updateWord(Word word);
+	
+	public int deleteWord(Word word);
 }

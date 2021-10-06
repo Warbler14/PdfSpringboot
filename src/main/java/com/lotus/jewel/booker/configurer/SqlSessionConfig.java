@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ResourceLoader;
 
-import com.lotus.jewel.booker.pdf.controller.PdfController;
 import com.lotus.jewel.booker.util.Util;
 
 @Configuration

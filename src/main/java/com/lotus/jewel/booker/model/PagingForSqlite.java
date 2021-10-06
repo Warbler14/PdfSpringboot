@@ -2,7 +2,7 @@ package com.lotus.jewel.booker.model;
 
 public class PagingForSqlite {
 	
-	private int rangeSize = 5;	//page count for block
+	private int rangeSize = 10;	//page count for block
 	
 	private int pageSize = 10;  //list for page
 	
