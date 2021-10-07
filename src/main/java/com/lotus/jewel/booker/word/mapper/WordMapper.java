@@ -15,7 +15,7 @@ public interface WordMapper {
 	
 	public int countWord();
 	
-	public Word selectWord(Word word);
+	public Word selectWord(String word);
 	
 	public int insertWord(Word word);
 	

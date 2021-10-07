@@ -108,8 +108,7 @@ public class StorageService {
 			reader = new BufferedReader(new FileReader(filePath));
 			String line = reader.readLine();
 			
-			long successCount = 0;
-			long failCount = 0;
+			long addCount = 0;
 			while (line != null) {
 				line = reader.readLine();
 				if(line == null) {
@@ -122,23 +121,25 @@ public class StorageService {
 						continue;
 					}
 					
+					if(text.length() < 2) {
+						continue;
+					}
+					
 					Matcher matcher = pattern.matcher(text);
 					if(!matcher.find()) {
 						continue;
 					}
 					
 					Word word = new Word();
-					word.setWord(text);
+					word.setWord(text.toLowerCase());
 					
 					int result = wordService.addWords(word);
 					if(result == 1) {
-						successCount++;
-					} else {
-						failCount += result;
+						addCount++;
 					}
 				}
 			}
-			logger.info("successCount : " + successCount + ", failCount : " + failCount);
+			logger.info("add count : " + addCount);
 			
 			reader.close();
 		} catch (Exception e) {

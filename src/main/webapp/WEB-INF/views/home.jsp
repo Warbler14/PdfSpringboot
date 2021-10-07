@@ -10,6 +10,12 @@
 
 	<h1>Pages</h1>
 	
-	<a href="<c:url value='/storage/file'/>">storageFile</a>
+	<div>
+		<a href="<c:url value='/storage/file'/>">storage file</a>	
+	</div>
+	<div>
+		<a href="<c:url value='/word/boardList'/>">word board</a>	
+	</div>
+	
 </body>
 </html>
