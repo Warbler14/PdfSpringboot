@@ -1,6 +1,7 @@
 package com.lotus.jewel.booker.word.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lotus.jewel.booker.response.Result;
+import com.lotus.jewel.booker.http.Result;
 import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.WordDetail;
 import com.lotus.jewel.booker.word.service.WordService;
 
 
@@ -34,14 +39,9 @@ public class WordController {
 	WordService wordService;
 	
 	@GetMapping("boardList")
-	public ModelAndView boardList(Word word, Model model
-//			, @RequestParam(value="nowPage", required=false)String nowPage
-//			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
-			) {
+	public ModelAndView boardList(Word word, Model model) {
 		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "board");
-		
-		
 		
 		int total = wordService.getCountWord();
 		word.setTotal(total);
@@ -60,8 +60,20 @@ public class WordController {
 		return mav;
 	}
 	
-	
-	
+	@GetMapping("section")
+	public ModelAndView section(Word word, Model model) {
+		
+		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
+		
+		String keyWord = word.getWord();
+		logger.info("keyWord " + keyWord);
+		
+		WordDetail wordDetail = wordService.getWordDetail(word);
+		
+		model.addAttribute("wordDetail", wordDetail);
+		
+		return mav;
+	}
 	
 	@GetMapping("/putWord")
 	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
@@ -71,11 +83,52 @@ public class WordController {
 		Word word = new Word();
 		word.setWord(text);
 		
-		wordService.putWords(word);
+		wordService.putWord(word);
 		
 		Map<String, String> test = new HashMap<>();
 		test.put("wod", word.toString());
 		
 		return new Result<Map<String, String>>(test);
 	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public @ResponseBody Result<Map<String, String>> post(HttpServletRequest reqest,
+			@ModelAttribute WordDetail wordDetail
+//			@RequestParam Map<String,String> map
+			) throws IOException {
+		
+		String formMethod = reqest.getParameter("formMethod");
+		
+		logger.info("formMethod : " +  formMethod);
+		
+		Word word = wordDetail.getThis();
+		if("PUT".equals(formMethod)) {
+			wordService.putWord(word);
+			
+		} else if("DELETE".equals(formMethod)) {
+			wordService.removeWord(word);
+		}
+		
+		
+//		String keyWord = wordDetail.getWord().getWord();
+//		logger.info("keyWord " + keyWord);
+		
+		Map<String, String> test = new HashMap<>();
+		test.put("message", new Date().toString());
+		
+		return new Result<Map<String, String>>(test);
+	}
+	
+//	@GetMapping("/data")
+//	public @ResponseBody Result<Map<String, String>> data(Word word) throws IOException {
+//		
+//		String keyWord = word.getWord();
+//		logger.info("keyWord " + keyWord);
+//		
+//		Map<String, String> test = new HashMap<>();
+//		test.put("message", new Date().toString());
+//		
+//		return new Result<Map<String, String>>(test);
+//	}
+	
 }

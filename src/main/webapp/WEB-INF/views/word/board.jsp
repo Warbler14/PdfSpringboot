@@ -15,13 +15,34 @@
 	  /* border: 1px solid green; */
 	  padding: 10px;
 	}
+	#header {
+		background-color:lightgrey;
+		height:100px;
+	}
+	#nav {
+		background-color:#9ce7e7;
+		width: 600px;
+		float:left;
+	}
+	#section {
+		float:left;
+		padding:10px;
+	}
+	#footer {
+		background-color:#FFCC00;
+		height:100px;
+		clear:both;
+	}
+	#header, #nav, #section, #footer { text-align:center }
+	#header, #footer { line-height:100px; }
 </style>
 <body>
-
-	<h1>board</h1>
+	<div id="header">
+		<h2>Word Board</h2>
+	</div>
 	
-	
-	<div style="display: block; width: 800px;">
+	<div id="nav">
+		
 		<div class="center">
 			<table border="1">
 			    <tr>
@@ -33,7 +54,7 @@
 			    <c:forEach var="word" items="${wordList}">
 			    <tr>
 			    	<td><c:out value="${word.header}"/></td>
-			        <td><c:out value="${word.word}"/></td>
+			        <td class="keyWord"><span><c:out value="${word.word}"/></span></td>
 			        <td><c:out value="${word.lank}"/></td>
 			        <td><c:out value="${word.difficulty}"/></td>
 			    </tr>  
@@ -59,6 +80,20 @@
 				<a href="/word/boardList?currentPage=${paging.endPage+1 }">&gt;</a>
 			</c:if>
 		</div>
+		
+		<!-- end NAV -->
+	</div>
+	
+	<div id="section">
+		<div id="section_container">
+			<p>section</p>
+			<%-- <jsp:include page="section.jsp"/> --%>
+		</div>
+		
+	</div>
+	
+	<div id="footer">
+		<p>footer</p>
 	</div>
 
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
@@ -67,6 +102,23 @@
 
 document.addEventListener("DOMContentLoaded", function(){
 
+});
+
+$(".keyWord").click(function() {
+	var value = $(this).text();
+	
+	$.ajax({
+		url: "./section?word=" + value,
+		method: "GET",
+		success : function(result) {
+			$("#section_container").html(result);
+		},
+		error : function(xhr, status, error) {
+			console.log("에러발생 :  " + error);
+			
+		}
+	});
+	
 });
 	
 </script>

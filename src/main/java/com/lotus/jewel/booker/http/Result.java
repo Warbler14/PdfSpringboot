@@ -1,4 +1,4 @@
-package com.lotus.jewel.booker.response;
+package com.lotus.jewel.booker.http;
 
 public class Result <T>{
 	

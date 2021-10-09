@@ -133,7 +133,7 @@ public class StorageService {
 					Word word = new Word();
 					word.setWord(text.toLowerCase());
 					
-					int result = wordService.addWords(word);
+					int result = wordService.addWord(word);
 					if(result == 1) {
 						addCount++;
 					}

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lotus.jewel.booker.response.Result;
+import com.lotus.jewel.booker.http.Result;
 import com.lotus.jewel.booker.storage.service.StorageService;
 import com.lotus.jewel.booker.word.service.WordService;
 

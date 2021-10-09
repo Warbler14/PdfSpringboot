@@ -90,6 +90,10 @@ public class Word extends PagingForSqlite implements Serializable{
 	public void setModifyDatetime(String modifyDatetime) {
 		this.modifyDatetime = modifyDatetime;
 	}
+	
+	public Word getThis() {
+		return this;
+	}
 
 	@Override
 	public String toString() {
