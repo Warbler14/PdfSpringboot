@@ -1,7 +1,6 @@
 package com.lotus.jewel.booker.word.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.lotus.jewel.booker.word.mapper.WordMapper;
 import com.lotus.jewel.booker.word.model.Word;
-import com.lotus.jewel.booker.word.model.WordDetail;
 
 
 @Service
@@ -42,19 +40,6 @@ public class WordService {
 	public int getCountWord() {
 		return wordMapper.countWord();
 	}
-	
-	public WordDetail getWordDetail(Word word) {
-		
-		WordDetail wordDetail = new WordDetail();
-		wordDetail.setWord(word);
-		
-		wordDetail.setDescription("text");
-		
-		
-		return wordDetail;
-	}
-	
-	
 	
 	public int addWord(Word word) {
 		Calendar cal = Calendar.getInstance();

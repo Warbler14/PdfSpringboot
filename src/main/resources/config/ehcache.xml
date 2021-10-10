@@ -17,7 +17,7 @@
     <defaultCache
             eternal="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="1200"
+            timeToLiveSeconds="60"
             overflowToDisk="false"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
@@ -27,7 +27,7 @@
      <cache name="wordCache"
            eternal="false"
            timeToIdleSeconds="0"
-           timeToLiveSeconds="1200"
+           timeToLiveSeconds="10"
            overflowToDisk="false"
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"

@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lotus.jewel.booker.http.Result;
 import com.lotus.jewel.booker.word.model.Word;
-import com.lotus.jewel.booker.word.model.WordDetail;
 import com.lotus.jewel.booker.word.service.WordService;
 
 
@@ -68,7 +66,7 @@ public class WordController {
 		String keyWord = word.getWord();
 		logger.info("keyWord " + keyWord);
 		
-		WordDetail wordDetail = wordService.getWordDetail(word);
+		Word wordDetail = wordService.getWord(word.getWord());
 		
 		model.addAttribute("wordDetail", wordDetail);
 		
@@ -93,7 +91,7 @@ public class WordController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public @ResponseBody Result<Map<String, String>> post(HttpServletRequest reqest,
-			@ModelAttribute WordDetail wordDetail
+			@ModelAttribute Word word
 //			@RequestParam Map<String,String> map
 			) throws IOException {
 		
@@ -101,7 +99,6 @@ public class WordController {
 		
 		logger.info("formMethod : " +  formMethod);
 		
-		Word word = wordDetail.getThis();
 		if("PUT".equals(formMethod)) {
 			wordService.putWord(word);
 			

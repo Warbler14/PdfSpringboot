@@ -51,7 +51,6 @@
 		</div>
 	</div>
 	
-	
 	<div>
 		<div class="titleBox">
 			<p>상세</p>
@@ -72,7 +71,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 });
 
-var ajaxSubmit = function() {
+var ajaxSubmit = function(caller) {
 	var formData = $("#sectionForm").serialize();
 	var action = $("#sectionForm").attr("action");
 	console.log(action);
@@ -84,7 +83,9 @@ var ajaxSubmit = function() {
         success : function(result) {
             console.log(result);
             if(result.status) {
-	            location.reload();
+            	if(caller != undefined) {
+	            	caller();            		
+            	}
             }
         }, // success 
 
@@ -94,12 +95,17 @@ var ajaxSubmit = function() {
     });
 }
 
+var locationReload = function() {
+	location.reload();
+}
+
 $("#btn-save").click(function(e) {
 	e.preventDefault();
 	if(!confirm('정말로 저장하시겠습니까?')) return;
 	$("#sectionForm #formMethod").val("PUT");
 	//$('#sectionForm')[0].submit();
-	ajaxSubmit();
+	var keyWord = $("#keyWord").val();
+	ajaxSubmit(locationReload);
 });
 
 $("#btn-delete").click(function(e) {
@@ -107,7 +113,7 @@ $("#btn-delete").click(function(e) {
 	if(!confirm('정말로 삭제하시겠습니까?')) return;
 	$("#sectionForm #formMethod").val("DELETE");
 	//$('#sectionForm')[0].submit();
-	ajaxSubmit();
+	ajaxSubmit(locationReload);
 	
 });
 

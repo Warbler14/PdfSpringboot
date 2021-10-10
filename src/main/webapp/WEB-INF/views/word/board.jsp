@@ -104,11 +104,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-$(".keyWord").click(function() {
-	var value = $(this).text();
+var loadSection = function(text) {
+	$("#section_container").html('');
 	
 	$.ajax({
-		url: "./section?word=" + value,
+		url: "./section?word=" + text,
 		method: "GET",
 		success : function(result) {
 			$("#section_container").html(result);
@@ -118,6 +118,12 @@ $(".keyWord").click(function() {
 			
 		}
 	});
+}
+
+$(".keyWord").click(function() {
+	var value = $(this).text();
+	
+	loadSection(value);
 	
 });
 	

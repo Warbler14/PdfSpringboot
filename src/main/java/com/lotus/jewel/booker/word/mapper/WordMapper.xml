@@ -8,6 +8,7 @@
 			word
 			, header
 			, word_type
+			, description
 			, lank
 			, difficulty
 			, regist_datetime
@@ -20,6 +21,7 @@
 			word
 			, header
 			, word_type
+			, description
 			, lank
 			, difficulty
 			, regist_datetime
@@ -42,7 +44,7 @@
 				and difficulty = #{difficulty}
 			</if>
 		</where>
-		order by header, lank, difficulty
+		order by header
 		limit #{start}, #{offset}
 	</select>
 	
@@ -56,13 +58,13 @@
 			word
 			, header
 			, word_type
+			, description
 			, lank
 			, difficulty
 			, regist_datetime
 			, modify_datetime
 		from word
 		where word = #{word}
-		order by header, lank, difficulty
 	</select>
 		
 	<insert id="insertWord">
@@ -70,6 +72,7 @@
 			word
 			, header
 			, word_type
+			, description
 			, lank
 			, difficulty
 			, regist_datetime
@@ -78,6 +81,7 @@
 			#{word}
 			, #{header}
 			, #{wordType}
+			, #{description}
 			, #{lank}
 			, #{difficulty}
 			, #{registDatetime}
@@ -89,6 +93,7 @@
 		update word
 		<set>
 			<if test="wordType != null">word_type = #{wordType},</if>
+			<if test="description != null">description = #{description},</if>
 			<if test="lank != null">lank = #{lank},</if>
 			<if test="difficulty != null">difficulty = #{difficulty},</if>
 			modify_datetime = #{modifyDatetime}
