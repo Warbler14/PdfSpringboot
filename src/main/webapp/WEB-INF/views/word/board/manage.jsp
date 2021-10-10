@@ -64,7 +64,7 @@
 		
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">
-				<a href="/word/boardList?currentPage=${paging.startPage - 1 }">&lt;</a>
+				<a href="./manage?currentPage=${paging.startPage - 1 }">&lt;</a>
 			</c:if>
 			<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="page">
 				<c:choose>
@@ -72,12 +72,12 @@
 						<b>${page }</b>
 					</c:when>
 					<c:when test="${page != paging.currentPage }">
-						<a href="/word/boardList?currentPage=${page }">${page }</a>
+						<a href="./manage?currentPage=${page }">${page }</a>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${paging.endPage != paging.lastPage}">
-				<a href="/word/boardList?currentPage=${paging.endPage+1 }">&gt;</a>
+				<a href="./manage?currentPage=${paging.endPage+1 }">&gt;</a>
 			</c:if>
 		</div>
 		

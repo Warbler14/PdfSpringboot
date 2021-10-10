@@ -14,7 +14,10 @@
 		<a href="<c:url value='/storage/file'/>">storage file</a>	
 	</div>
 	<div>
-		<a href="<c:url value='/word/boardList'/>">word board</a>	
+		<a href="<c:url value='/wordBoard/manage'/>">word board</a>	
+	</div>
+	<div>
+		<a href="<c:url value='/workbook/manage'/>">workbook board</a>	
 	</div>
 	
 </body>

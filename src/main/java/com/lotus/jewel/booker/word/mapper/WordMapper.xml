@@ -51,6 +51,23 @@
 	<select id="countWord" resultType="int">
 		select count(*)
 		from word
+		<where>
+			<if test="word != null">
+				and word = #{word}
+			</if>
+			<if test="header != null">
+				and header = #{header}
+			</if>
+			<if test="wordType != null">
+				and word_type = #{wordType}
+			</if>
+			<if test="lank != null">
+				and lank = #{lank}
+			</if>
+			<if test="difficulty != null">
+				and difficulty = #{difficulty}
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.Word">

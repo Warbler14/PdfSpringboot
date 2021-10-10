@@ -26,20 +26,20 @@ import com.lotus.jewel.booker.word.service.WordService;
 
 
 @Controller
-@RequestMapping("/word")
-public class WordController {
+@RequestMapping("/wordBoard")
+public class WordBoardController {
 
-	private final static Logger logger = LoggerFactory.getLogger(WordController.class);
+	private final static Logger logger = LoggerFactory.getLogger(WordBoardController.class);
 	
-	private final static String SUB_PATH = "word/";
+	private final static String SUB_PATH = "word/board/";
 	
 	@Autowired
 	WordService wordService;
 	
-	@GetMapping("boardList")
-	public ModelAndView boardList(Word word, Model model) {
+	@GetMapping("manage")
+	public ModelAndView manage(Word word, Model model) {
 		
-		ModelAndView mav = new ModelAndView(SUB_PATH + "board");
+		ModelAndView mav = new ModelAndView(SUB_PATH + "manage");
 		
 		int total = wordService.getCountWord();
 		word.setTotal(total);
@@ -73,21 +73,21 @@ public class WordController {
 		return mav;
 	}
 	
-	@GetMapping("/putWord")
-	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
-		
-		String text = reqest.getParameter("text");
-		
-		Word word = new Word();
-		word.setWord(text);
-		
-		wordService.putWord(word);
-		
-		Map<String, String> test = new HashMap<>();
-		test.put("wod", word.toString());
-		
-		return new Result<Map<String, String>>(test);
-	}
+//	@GetMapping("/putWord")
+//	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
+//		
+//		String text = reqest.getParameter("text");
+//		
+//		Word word = new Word();
+//		word.setWord(text);
+//		
+//		wordService.putWord(word);
+//		
+//		Map<String, String> test = new HashMap<>();
+//		test.put("wod", word.toString());
+//		
+//		return new Result<Map<String, String>>(test);
+//	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public @ResponseBody Result<Map<String, String>> post(HttpServletRequest reqest,
@@ -105,10 +105,6 @@ public class WordController {
 		} else if("DELETE".equals(formMethod)) {
 			wordService.removeWord(word);
 		}
-		
-		
-//		String keyWord = wordDetail.getWord().getWord();
-//		logger.info("keyWord " + keyWord);
 		
 		Map<String, String> test = new HashMap<>();
 		test.put("message", new Date().toString());

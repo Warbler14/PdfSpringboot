@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lotus.jewel.booker.word.mapper.WorkbookMapper">
+
+	<!-- workbook -->
+	
+	<select id="selectWorkbookListForPage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+		select
+			work_day
+			, user_id
+			, memo
+			, modify_datetime
+		from workbook
+		<where>
+			<if test="workDay != null">
+				and work_day = #{workDay}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+		</where>
+		order by work_day desc
+		limit #{start}, #{offset}
+	</select>
+	
+	<select id="countWorkbook" resultType="int">
+		select count(*)
+		from workbook
+		<where>
+			<if test="workDay != null">
+				and work_day = #{workDay}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectWorkbook" resultType="com.lotus.jewel.booker.word.model.Workbook">
+		select
+			work_day
+			, user_id
+			, memo
+			, modify_datetime
+		from workbook
+		<where>
+			<if test="workDay != null">
+				and work_day = #{workDay}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</select>
+		
+	<insert id="insertWorkbook">
+		insert into workbook (
+			work_day
+			, user_id
+			, memo
+			, modify_datetime
+		) values (
+			#{workDay}
+			, #{userId}
+			, #{memo}
+			, #{modifyDatetime}
+		)
+	</insert>
+	
+	<delete id="deleteWorkbook">
+		delete from workbook
+		where work_day = #{workDay}
+		and user_id = #{userId}
+	</delete>
+	
+	<!-- workpage -->
+	
+	<select id="selectWorkpageListForPage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+		select
+			work_day
+			, user_id
+			, word
+			, status
+			, regist_datetime
+			, modify_datetime
+		from workpage
+		where work_day = #{workDay}
+		and user_id = #{userId}
+		<if test="word != null">
+			and word = #{word}
+		</if>
+		order by word desc
+		limit #{start}, #{offset}
+	</select>
+	
+	<select id="countWorkpage" resultType="int">
+		select count(*)
+		from workpage
+		where work_day = #{workDay}
+		and user_id = #{userId}
+		<if test="word != null">
+			and word = #{word}
+		</if>
+	</select>
+	
+	<select id="selectWorkpage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+		select
+			work_day
+			, user_id
+			, word
+			, status
+			, regist_datetime
+			, modify_datetime
+		from workpage
+		where work_day = #{workDay}
+		and user_id = #{userId}
+		and word = #{word}
+	</select>
+		
+	<insert id="insertWorkpage">
+		insert into workpage (
+			work_day
+			, user_id
+			, word
+			, status
+			, regist_datetime
+			, modify_datetime
+		) values (
+			#{workDay}
+			, #{userId}
+			, #{word}
+			, #{status}
+			, #{registDatetime}
+			, #{modifyDatetime}
+		)
+	</insert>
+	
+	<delete id="deleteWorkpage">
+		delete from workpage
+		where work_day = #{workDay}
+		and user_id = #{userId}
+		and word = #{word}
+	</delete>
+	
+</mapper>

@@ -29,7 +29,6 @@
 <form:form id="sectionForm" action="./update">
 	<input type="hidden" name="formMethod" id="formMethod" value="PUT"/>
 	
-	
 	<div>
 		<div class="titleBox">
 			<p>단어</p>
@@ -61,8 +60,6 @@
 		
 		<div class="end"></div>
 	
-		<button type="button" id="btn-save" >save</button>
-		<button type="button" id="btn-delete" >delete</button>
 	</div>
 </form:form>	
 	
@@ -71,51 +68,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 });
 
-var ajaxSubmit = function(caller) {
-	var formData = $("#sectionForm").serialize();
-	var action = $("#sectionForm").attr("action");
-	console.log(action);
-	$.ajax({
-        cache : false,
-        url : action, // "${pageContext.request.contextPath}/testForm1",
-        type : 'POST', 
-        data : formData, 
-        success : function(result) {
-            console.log(result);
-            if(result.status) {
-            	if(caller != undefined) {
-	            	caller();            		
-            	}
-            }
-        }, // success 
 
-        error : function(xhr, status) {
-            alert(xhr + " : " + status);
-        }
-    });
-}
-
-var locationReload = function() {
-	location.reload();
-}
-
-$("#btn-save").click(function(e) {
-	e.preventDefault();
-	if(!confirm('정말로 저장하시겠습니까?')) return;
-	$("#sectionForm #formMethod").val("PUT");
-	//$('#sectionForm')[0].submit();
-	var keyWord = $("#keyWord").val();
-	ajaxSubmit(locationReload);
-});
-
-$("#btn-delete").click(function(e) {
-	e.preventDefault();
-	if(!confirm('정말로 삭제하시겠습니까?')) return;
-	$("#sectionForm #formMethod").val("DELETE");
-	//$('#sectionForm')[0].submit();
-	ajaxSubmit(locationReload);
-	
-});
 
 	
 </script>
