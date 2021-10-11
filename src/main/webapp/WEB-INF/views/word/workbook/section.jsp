@@ -22,6 +22,21 @@
 	.textLeft {
 		text-align:left
 	}
+	.normal {
+		font-size: medium;
+	}
+	.highlight {
+		font-size:xx-large;
+		font-weight:400;
+		font-family: "Lucida Console", "Courier New", monospace;
+		color:#2580a2;   
+		  -moz-transition:color .3s ease;   
+		  -o-transition:color .3s ease;   
+		  -ms-transition:color .3s ease;   
+		  -webkit-transition:color .3s ease;   
+		  transition:color .3s ease;
+	}
+	.highlight:hover { color:#F12AD0; }  
 </style>
 <div>
 <c:choose>
@@ -34,20 +49,21 @@
 					<p>단어</p>
 				</div>
 				<div class="valueBox">
-					<p id="keyWord"><c:out value="${wordDetail.word}"/></p>
+					<p id="keyWord" class="highlight"><c:out value="${wordDetail.word}"/></p>
 					<input type="hidden" name="word" value="${wordDetail.word}"/>
 				</div>
-				<div class="end1"></div>
+				<div class="end"></div>
 			</div>
 			<div>
 				<div class="titleBox">
 					<p>상태</p>
 				</div>
-				<div class="valueBox textLeft">
+				<div class="valueBox textLeft normal">
 					<p><span>순위  </span><input type="text" name="lank" value="${wordDetail.lank}"/></p>
 					<p><span>난이도 </span><input type="text" name="difficulty" value="${wordDetail.difficulty}"/></p>
 					
 				</div>
+				<div class="end"></div>
 			</div>
 			
 			<div>
