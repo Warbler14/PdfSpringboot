@@ -85,7 +85,7 @@ public class WorkbookController {
 	}
 	
 	@GetMapping("section")
-public ModelAndView section(Word word, Model model) {
+	public ModelAndView section(Word word, Model model) {
 		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
 		

@@ -24,42 +24,51 @@
 	}
 </style>
 <div>
-<form:form id="sectionForm" action="./update">
-	<input type="hidden" name="formMethod" id="formMethod" value="PUT"/>
-	
-	<div>
-		<div class="titleBox">
-			<p>단어</p>
-		</div>
-		<div class="valueBox">
-			<p id="keyWord"><c:out value="${wordDetail.word}"/></p>
-			<input type="hidden" name="word" value="${wordDetail.word}"/>
-		</div>
-		<div class="end1"></div>
-	</div>
-	<div>
-		<div class="titleBox">
-			<p>상태</p>
-		</div>
-		<div class="valueBox textLeft">
-			<p><span>순위  </span><input type="text" name="lank" value="${wordDetail.lank}"/></p>
-			<p><span>난이도 </span><input type="text" name="difficulty" value="${wordDetail.difficulty}"/></p>
+<c:choose>
+	<c:when test="${wordDetail.word != null }">
+		<form:form id="sectionForm" action="./update">
+			<input type="hidden" name="formMethod" id="formMethod" value="PUT"/>
 			
+			<div>
+				<div class="titleBox">
+					<p>단어</p>
+				</div>
+				<div class="valueBox">
+					<p id="keyWord"><c:out value="${wordDetail.word}"/></p>
+					<input type="hidden" name="word" value="${wordDetail.word}"/>
+				</div>
+				<div class="end1"></div>
+			</div>
+			<div>
+				<div class="titleBox">
+					<p>상태</p>
+				</div>
+				<div class="valueBox textLeft">
+					<p><span>순위  </span><input type="text" name="lank" value="${wordDetail.lank}"/></p>
+					<p><span>난이도 </span><input type="text" name="difficulty" value="${wordDetail.difficulty}"/></p>
+					
+				</div>
+			</div>
+			
+			<div>
+				<div class="titleBox">
+					<p>상세</p>
+				</div>
+				<div class="valueBox textLeft">
+					<textarea name="description" cols="70" rows="6">${wordDetail.description}</textarea>
+				</div>
+				
+				<div class="end"></div>
+			
+			</div>
+		</form:form>
+	</c:when>
+	<c:otherwise>
+		<div>
+			<span>word not found</span>
 		</div>
-	</div>
-	
-	<div>
-		<div class="titleBox">
-			<p>상세</p>
-		</div>
-		<div class="valueBox textLeft">
-			<textarea name="description" cols="70" rows="6">${wordDetail.description}</textarea>
-		</div>
-		
-		<div class="end"></div>
-	
-	</div>
-</form:form>	
+	</c:otherwise>
+</c:choose>
 	
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
