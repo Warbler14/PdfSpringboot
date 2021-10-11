@@ -70,6 +70,26 @@
 		</where>
 	</select>
 	
+	<select id="selectWordListForLank" resultType="com.lotus.jewel.booker.word.model.Word">
+		select
+			word
+			, header
+			, word_type
+			, description
+			, lank
+			, difficulty
+			, regist_datetime
+			, modify_datetime
+		from word
+		<where>
+			<if test="lank != null">
+				and lank &gt;= #{lank}
+			</if>
+		</where>
+		order by lank, difficulty
+		limit #{start}, #{offset}
+	</select>
+	
 	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.Word">
 		select
 			word

@@ -40,6 +40,7 @@
 	}
 	#header, #nav, #section, #footer { text-align:center }
 	#header, #footer { line-height:100px; }
+	table tr td { width:100px; text-align:center; }
 </style>
 <body>
 	<div id="header">
@@ -114,12 +115,14 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 var loadWorkpage = function(workDay) {
-	$("#section_container").html('');
 	
 	$.ajax({
 		url: "./workpage?workDay=" + workDay,
 		method: "GET",
 		success : function(result) {
+			$("#workpage_container").html('');
+			$("#section_container").html('');
+			
 			$("#workpage_container").html(result);
 		},
 		error : function(xhr, status, error) {

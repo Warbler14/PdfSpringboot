@@ -113,9 +113,17 @@
 			, regist_datetime
 			, modify_datetime
 		from workpage
-		where work_day = #{workDay}
-		and user_id = #{userId}
-		and word = #{word}
+		<where>
+			<if test="workDay != null">
+				and work_day = #{workDay}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="word != null">
+				and word = #{word}
+			</if>
+		</where>
 	</select>
 		
 	<insert id="insertWorkpage">

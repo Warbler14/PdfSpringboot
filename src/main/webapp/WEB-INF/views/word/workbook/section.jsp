@@ -6,17 +6,15 @@
 <style>
 	.titleBox {
 	 	background-color:lightgrey;
-		/* width:20%; */
 		width:200px;
 	  	padding: 5px;
 	  	float:left;
 	}
 	.valueBox {
-		/* width:80%; */
 		width:600px;
 	  	padding: 5px;
 	  	float:left;
-	  	border-style:solid
+	  	/* border-style:solid */
 	}
 	.end {
 		clear:both;
@@ -66,6 +64,7 @@
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
+	
 });
 
 

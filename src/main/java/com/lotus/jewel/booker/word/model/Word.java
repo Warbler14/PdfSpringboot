@@ -44,7 +44,7 @@ public class Word extends PagingForSqlite implements Serializable{
 	}
 
 	public void setHeader(Character header) {
-		this.header = header;
+		this.header = Character.toUpperCase(header);
 	}
 	
 	public void setHeader() {

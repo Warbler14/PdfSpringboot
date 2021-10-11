@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -122,21 +121,22 @@ public ModelAndView section(Word word, Model model) {
 	}
 	
 	@GetMapping("/getWords")
-	public @ResponseBody Result<Map<String, String>> getWords(Workbook workbook) throws IOException {
+	public @ResponseBody Result<Map<String, Object>> getWords(Workbook workbook) throws IOException {
 		
 		logger.info("getWords");
+		int resultCount = 0;
 		
 		try {
-			workbookService.addWorkpageWords(workbook);
+			resultCount = workbookService.addWorkpageWords(workbook);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		Map<String, String> test = new HashMap<>();
-		test.put("message", new Date().toString());
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("resultCount", resultCount);
 		
-		return new Result<Map<String, String>>(test);
+		return new Result<Map<String, Object>>(result);
 	}
 	
 	

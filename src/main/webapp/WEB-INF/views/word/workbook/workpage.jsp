@@ -48,12 +48,14 @@
 		<!-- end NAV -->
 	</div>
 	
+	
+	
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
 
 document.addEventListener("DOMContentLoaded", function(){
-
+	$("#section_container").html('');
 });
 
 $("#getWords").click(function(e) {
@@ -67,6 +69,8 @@ $("#getWords").click(function(e) {
 		method: "GET",
 		success : function(result) {
 			console.log(result);
+			const resultCount = result.data.resultCount;
+			alert(resultCount);
 		},
 		error : function(xhr, status, error) {
 			console.log("에러발생 :  " + error);
@@ -76,7 +80,9 @@ $("#getWords").click(function(e) {
 });
 
 var loadSection = function(text) {
-	$("#section_container").html('');
+	if(text == null || text == undefined) {
+		return;
+	}
 	
 	$.ajax({
 		url: "./section?word=" + text,
@@ -91,7 +97,7 @@ var loadSection = function(text) {
 	});
 }
 
-$(".keyWord").click(function() {
+$("#nav02 .keyWord").click(function() {
 	var value = $(this).text();
 	
 	loadSection(value);

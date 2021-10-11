@@ -27,20 +27,25 @@ public class WordService {
 		return resultList;
 	}
 	
-	@Cacheable(value = "wordCache", key = "#text")
-	public Word getWord(String text) {
-		return wordMapper.selectWord(text);
-	}
-	
 	public List<Word> getWordListForPage(Word word) throws Exception {
 		List<Word> resultList = wordMapper.selectWordListForPage(word);
 		return resultList;
 	}
 	
-	public int getCountWord() {
-		return wordMapper.countWord();
+	public int getCountWord(Word word) {
+		return wordMapper.countWord(word);
 	}
 	
+	public List<Word> getWordListForLank(Word word) throws Exception {
+		List<Word> resultList = wordMapper.selectWordListForLank(word);
+		return resultList;
+	}
+	
+	@Cacheable(value = "wordCache", key = "#text")
+	public Word getWord(String text) {
+		return wordMapper.selectWord(text);
+	}
+
 	public int addWord(Word word) {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -54,11 +59,10 @@ public class WordService {
 		
 		logger.debug("duration " + (System.currentTimeMillis() - start));
 		
-		
 		if(savedWord == null) {
 			word.setRegistDatetime(datetime);
-			word.setLank(1);
-			word.setDifficulty(1);
+			word.setLank(2);
+			word.setDifficulty(2);
 			
 			return wordMapper.insertWord(word);
 		}

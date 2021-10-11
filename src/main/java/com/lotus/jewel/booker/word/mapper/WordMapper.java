@@ -13,7 +13,9 @@ public interface WordMapper {
 	
 	public List<Word> selectWordListForPage(Word word);
 	
-	public int countWord();
+	public int countWord(Word word);
+	
+	public List<Word> selectWordListForLank(Word word);
 	
 	public Word selectWord(String word);
 	

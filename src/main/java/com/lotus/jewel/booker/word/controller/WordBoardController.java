@@ -38,10 +38,15 @@ public class WordBoardController {
 	
 	@GetMapping("manage")
 	public ModelAndView manage(Word word, Model model) {
-		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "manage");
+		return mav;
+	}
+	
+	@GetMapping("wordList")
+	public ModelAndView wordList(Word word, Model model) {
+		ModelAndView mav = new ModelAndView(SUB_PATH + "wordList");
 		
-		int total = wordService.getCountWord();
+		int total = wordService.getCountWord(word);
 		word.setTotal(total);
 		word.calcPage();
 		
@@ -60,7 +65,6 @@ public class WordBoardController {
 	
 	@GetMapping("section")
 	public ModelAndView section(Word word, Model model) {
-		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
 		
 		String keyWord = word.getWord();
@@ -72,22 +76,6 @@ public class WordBoardController {
 		
 		return mav;
 	}
-	
-//	@GetMapping("/putWord")
-//	public @ResponseBody Result<Map<String, String>> putWord(HttpServletRequest reqest) throws IOException {
-//		
-//		String text = reqest.getParameter("text");
-//		
-//		Word word = new Word();
-//		word.setWord(text);
-//		
-//		wordService.putWord(word);
-//		
-//		Map<String, String> test = new HashMap<>();
-//		test.put("wod", word.toString());
-//		
-//		return new Result<Map<String, String>>(test);
-//	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public @ResponseBody Result<Map<String, String>> post(HttpServletRequest reqest,
@@ -112,16 +100,23 @@ public class WordBoardController {
 		return new Result<Map<String, String>>(test);
 	}
 	
-//	@GetMapping("/data")
-//	public @ResponseBody Result<Map<String, String>> data(Word word) throws IOException {
-//		
-//		String keyWord = word.getWord();
-//		logger.info("keyWord " + keyWord);
-//		
-//		Map<String, String> test = new HashMap<>();
-//		test.put("message", new Date().toString());
-//		
-//		return new Result<Map<String, String>>(test);
-//	}
+	@GetMapping("/inputWord")
+	public @ResponseBody Result<Map<String, Object>> inputWord(Word word) throws IOException {
+		
+		logger.info("inputWord");
+		int resultCount = 0;
+		
+		try {
+			resultCount = wordService.addWord(word);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("resultCount", resultCount);
+		
+		return new Result<Map<String, Object>>(result);
+	}
 	
 }

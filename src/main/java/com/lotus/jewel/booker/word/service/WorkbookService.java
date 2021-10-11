@@ -99,8 +99,10 @@ public class WorkbookService {
 		return 0;
 	}
 	
-	public void addWorkpageWords(Workbook workbook) {
+	public int addWorkpageWords(Workbook workbook) {
 		
+		int max = 5;
+		int count = 0;
 		String workDay = workbook.getWorkDay();
 		
 		Calendar cal = Calendar.getInstance();
@@ -108,27 +110,52 @@ public class WorkbookService {
 		String datetime = sdf.format(cal.getTime());
 		
 		try {
-			Word word = new Word();
-			int total = wordService.getCountWord();
-			word.setTotal(total);
-			word.calcPage();
+			Word selectWord = new Word();
+			selectWord.setLank(2);
 			
-			List<Word> wordList = wordService.getWordListForPage(word);
-			for (int idx = 0 ; idx < 5; idx++) {
-				Word w = wordList.get(idx);
-				Workbook newWorkbook = new Workbook();
-				newWorkbook.setWorkDay(workDay);
-				newWorkbook.setUserId("user");
-				newWorkbook.setWord(w.getWord());
-				newWorkbook.setRegistDatetime(datetime);
-				newWorkbook.setModifyDatetime(datetime);
+			int total = wordService.getCountWord(selectWord);
+			selectWord.setTotal(total);
+			selectWord.calcPage();
+			
+			int lastPage = selectWord.getLastPage();
+
+			Workbook newWorkbook = new Workbook();
+			newWorkbook.setUserId("user");
+			
+			for (int page = 1 ; page < lastPage ; page++ ) {
+				List<Word> wordList = wordService.getWordListForLank(selectWord);
+				for(int idx = 0; idx < wordList.size() ; idx++) {
+					Word w = wordList.get(idx);
+					newWorkbook.setWord(w.getWord());
+					
+					Workbook wb = workbookMapper.selectWorkpage(newWorkbook);
+					if(wb == null) {
+						addDefaultWorkPage(workDay, w, datetime);
+						if(count++ >= max) {
+							return count;
+						}
+					}
+				}
 				
-				addWorkpage(newWorkbook);
-			}
+				selectWord.calcStartEnd(page, 10);
+			} //end
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return 0;
+	}
+	
+	private void addDefaultWorkPage(String workDay, Word word, String datetime) {
+		Workbook newWorkbook = new Workbook();
+		newWorkbook.setWorkDay(workDay);
+		newWorkbook.setUserId("user");
+		newWorkbook.setWord(word.getWord());
+		newWorkbook.setRegistDatetime(datetime);
+		newWorkbook.setModifyDatetime(datetime);
+		
+		addWorkpage(newWorkbook);
 	}
 	
 	public int removeWorkpage(Workbook workbook) {
