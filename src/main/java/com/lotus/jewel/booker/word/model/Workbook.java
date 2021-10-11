@@ -17,6 +17,8 @@ public class Workbook extends PagingForSqlite implements Serializable{
 	
 	private String word;
 	
+	private String updateWord;
+	
 	private Integer status = 1;
 	
 	private String registDatetime;
@@ -54,6 +56,14 @@ public class Workbook extends PagingForSqlite implements Serializable{
 	public void setWord(String word) {
 		this.word = word;
 	}
+	
+	public String getUpdateWord() {
+		return updateWord;
+	}
+
+	public void setUpdateWord(String updateWord) {
+		this.updateWord = updateWord;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -90,6 +100,8 @@ public class Workbook extends PagingForSqlite implements Serializable{
 		builder.append(memo);
 		builder.append(", word=");
 		builder.append(word);
+		builder.append(", updateWord=");
+		builder.append(updateWord);
 		builder.append(", status=");
 		builder.append(status);
 		builder.append(", registDatetime=");

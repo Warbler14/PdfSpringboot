@@ -12,6 +12,8 @@ public class Word extends PagingForSqlite implements Serializable{
 
 	private String word;
 	
+	private String updateWord;
+	
 	private Character header;
 	
 	private String wordType;
@@ -35,8 +37,16 @@ public class Word extends PagingForSqlite implements Serializable{
 	}
 
 	public void setWord(String word) {
-		this.word = word;
+		this.word = word.toLowerCase();
 		setHeader();
+	}
+	
+	public String getUpdateWord() {
+		return updateWord;
+	}
+
+	public void setUpdateWord(String updateWord) {
+		this.updateWord = updateWord;
 	}
 
 	public Character getHeader() {
@@ -110,6 +120,8 @@ public class Word extends PagingForSqlite implements Serializable{
 		StringBuilder builder = new StringBuilder();
 		builder.append("Word [word=");
 		builder.append(word);
+		builder.append(", updateWord=");
+		builder.append(updateWord);
 		builder.append(", header=");
 		builder.append(header);
 		builder.append(", wordType=");
@@ -127,4 +139,5 @@ public class Word extends PagingForSqlite implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
+
 }

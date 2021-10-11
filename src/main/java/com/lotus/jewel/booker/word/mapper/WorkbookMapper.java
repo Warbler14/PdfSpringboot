@@ -31,5 +31,7 @@ public interface WorkbookMapper {
 	
 	public int insertWorkpage(Workbook workbook);
 	
+	public int updateWorkpage(Workbook workbook);
+	
 	public int deleteWorkpage(Workbook workbook);
 }

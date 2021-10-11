@@ -33,20 +33,29 @@
 				<p>단어</p>
 			</div>
 			<div class="valueBox">
-				<p id="keyWord"><c:out value="${wordDetail.word}"/></p>
-				<input type="hidden" name="word" value="${wordDetail.word}"/>
+				<input type="text" name="updateWord" value="${wordDetail.word}" size="100"/>
+				<input type="hidden" name="word" value="${wordDetail.word}"/><br/>
 			</div>
-			<div class="end1"></div>
+			<div class="end"></div>
 		</div>
+		
 		<div>
 			<div class="titleBox">
 				<p>상태</p>
 			</div>
 			<div class="valueBox textLeft">
-				<p><span>순위  </span><input type="text" name="lank" value="${wordDetail.lank}"/></p>
-				<p><span>난이도 </span><input type="text" name="difficulty" value="${wordDetail.difficulty}"/></p>
-				
+				<table>
+					<tr>
+						<td><span>순위</span></td>
+						<td><input type="text" name="lank" value="${wordDetail.lank}"/></td>
+					</tr>
+					<tr>
+						<td><span>난이도</span></td>
+						<td><input type="text" name="difficulty" value="${wordDetail.difficulty}"/></td>
+					</tr>
+				</table>
 			</div>
+			<div class="end"></div>
 		</div>
 		
 		<div>
@@ -54,7 +63,7 @@
 				<p>상세</p>
 			</div>
 			<div class="valueBox textLeft">
-				<textarea name="description" cols="70" rows="4">${wordDetail.description}</textarea>
+				<textarea name="description" cols="70" rows="6">${wordDetail.description}</textarea>
 			</div>
 			
 			<div class="end"></div>
@@ -83,7 +92,7 @@ var ajaxSubmit = function(caller) {
             console.log(result);
             if(result.status) {
             	if(caller != undefined) {
-	            	caller();            		
+	            	caller();        		
             	}
             }
         }, // success 
@@ -102,9 +111,7 @@ $("#btn-save").click(function(e) {
 	//e.preventDefault();
 	//if(!confirm('정말로 저장하시겠습니까?')) return;
 	$("#sectionForm #formMethod").val("PUT");
-	//$('#sectionForm')[0].submit();
-	var keyWord = $("#keyWord").val();
-	ajaxSubmit(locationReload);
+	ajaxSubmit(wordList);
 });
 
 $("#btn-delete").click(function(e) {

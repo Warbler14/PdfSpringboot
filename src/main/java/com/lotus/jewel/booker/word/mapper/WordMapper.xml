@@ -29,7 +29,7 @@
 		from word
 		<where>
 			<if test="word != null">
-				and word = #{word}
+				and word like '%' || #{word} || '%'
 			</if>
 			<if test="header != null">
 				and header = #{header}
@@ -101,7 +101,9 @@
 			, regist_datetime
 			, modify_datetime
 		from word
-		where word = #{word}
+		where word like #{word} || '%'
+		order by modify_datetime desc
+		limit 1
 	</select>
 		
 	<insert id="insertWord">
@@ -129,6 +131,7 @@
 	<update id="updateWord">
 		update word
 		<set>
+			<if test="updateWord != null">word = #{updateWord},</if>
 			<if test="wordType != null">word_type = #{wordType},</if>
 			<if test="description != null">description = #{description},</if>
 			<if test="lank != null">lank = #{lank},</if>

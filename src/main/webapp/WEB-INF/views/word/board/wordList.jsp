@@ -7,13 +7,15 @@
 	  /* border: 1px solid green; */
 	  padding: 10px;
 	}
+	table tr td { width:80px; text-align:center; }
+	.width200 { width: 200px;}
 </style>
 
 <div class="center">
 	<table border="1">
 	    <tr>
 	    	<td>header</td>
-	        <td>word</td>
+	        <td class="width200">word</td>
 	        <td>lank</td>
 	        <td>difficulty</td>
 	    </tr>

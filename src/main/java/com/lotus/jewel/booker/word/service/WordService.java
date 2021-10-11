@@ -7,11 +7,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.lotus.jewel.booker.word.mapper.WordMapper;
+import com.lotus.jewel.booker.word.mapper.WorkbookMapper;
 import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.Workbook;
 
 
 @Service
@@ -21,6 +23,9 @@ public class WordService {
 	
 	@Autowired
 	private WordMapper wordMapper;
+	
+	@Autowired
+	private WorkbookMapper workbookMapper;
 	
 	public List<Word> getAll() throws Exception {
 		List<Word> resultList = wordMapper.selectAll();
@@ -41,7 +46,7 @@ public class WordService {
 		return resultList;
 	}
 	
-	@Cacheable(value = "wordCache", key = "#text")
+	//@Cacheable(value = "wordCache", key = "#text")
 	public Word getWord(String text) {
 		return wordMapper.selectWord(text);
 	}
@@ -86,7 +91,22 @@ public class WordService {
 		}
 		
 		word.setModifyDatetime(datetime);
-		return wordMapper.updateWord(word);
+		
+		String updateWord = word.getUpdateWord();
+		if(StringUtils.hasLength(updateWord)) {
+			if(updateWord.equals(word.getWord())) {
+				updateWord = null;
+			}
+		}
+		
+		int resultCount = wordMapper.updateWord(word);
+		
+		Workbook workBook = new Workbook();
+		workBook.setWord(word.getWord());
+		workBook.setUpdateWord(word.getUpdateWord());
+		workbookMapper.updateWorkpage(workBook);
+		
+		return resultCount;
 	}
 	
 	public int removeWord(Word word) {

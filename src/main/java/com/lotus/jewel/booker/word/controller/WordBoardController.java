@@ -70,7 +70,8 @@ public class WordBoardController {
 		String keyWord = word.getWord();
 		logger.info("keyWord " + keyWord);
 		
-		Word wordDetail = wordService.getWord(word.getWord());
+		String searchWord = keyWord.split(" ")[0].trim();
+		Word wordDetail = wordService.getWord(searchWord);
 		
 		model.addAttribute("wordDetail", wordDetail);
 		

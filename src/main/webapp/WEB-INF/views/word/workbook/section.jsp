@@ -53,7 +53,7 @@
 			<p>상세</p>
 		</div>
 		<div class="valueBox textLeft">
-			<textarea name="description" cols="70" rows="4">${wordDetail.description}</textarea>
+			<textarea name="description" cols="70" rows="6">${wordDetail.description}</textarea>
 		</div>
 		
 		<div class="end"></div>

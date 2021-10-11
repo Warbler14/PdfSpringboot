@@ -11,7 +11,7 @@
 <style>
 	.center {
 	  margin: auto;
-	  width: 50%;
+	  /* width: 50%; */
 	  /* border: 1px solid green; */
 	  padding: 10px;
 	}
@@ -26,7 +26,8 @@
 	}
 	#nav {
 		background-color:#9ce7e7;
-		width: 600px;
+		margin-left:100px;
+		/* width: 600px; */
 		float:left;
 	}
 	#section {
@@ -40,7 +41,7 @@
 	}
 	#header, #nav, #section, #footer { text-align:center }
 	#header, #footer { line-height:100px; }
-	table tr td { width:100px; text-align:center; }
+	
 </style>
 <body>
 	<div id="header">
@@ -87,13 +88,19 @@
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-
 document.addEventListener("DOMContentLoaded", function(){
 
 });
+var currentPageNumber = 1;
 
 var wordList = function(pageNumber) {
 	$("#word_list_container").html('');
+	
+	if(pageNumber == undefined) {
+		pageNumber = currentPageNumber;
+	} else {
+		currentPageNumber = pageNumber;
+	}
 	
 	var urls = "./wordList?currentPage=" + pageNumber;
 	var header = $("#search-header").val();
@@ -118,6 +125,7 @@ var wordList = function(pageNumber) {
 		}
 	});
 }
+
 $("#btn-search").click(function() {
 	wordList(1);
 });

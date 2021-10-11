@@ -144,6 +144,27 @@
 		)
 	</insert>
 	
+	<update id="updateWorkpage">
+		update workpage
+		<set>
+			<if test="memo != null">memo = #{memo},</if>
+			<if test="updateWord != null">word = #{updateWord},</if>
+			<if test="status != null">status = #{status},</if>
+			modify_datetime = #{modifyDatetime}
+		</set>
+		<where>
+			<if test="workDay != null">
+				and work_day = #{workDay}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="word != null">
+				and word = #{word}
+			</if>
+		</where>
+	</update>
+	
 	<delete id="deleteWorkpage">
 		delete from workpage
 		where work_day = #{workDay}
