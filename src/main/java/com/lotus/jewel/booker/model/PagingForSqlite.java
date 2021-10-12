@@ -1,5 +1,6 @@
 package com.lotus.jewel.booker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class PagingForSqlite {
 	
@@ -48,6 +49,7 @@ public class PagingForSqlite {
 		this.startPage = startPage;
 	}
 	
+	@JsonIgnore
 	public PagingForSqlite getPaging() {
 		return this;
 	}

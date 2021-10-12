@@ -61,8 +61,13 @@ document.addEventListener("DOMContentLoaded", function(){
 var loadSection = function(text) {
 	$("#section_container").html('');
 	
+	var word = text;
+	if(word == undefined) {
+		word = '';
+	}
+	
 	$.ajax({
-		url: "./section?word=" + text,
+		url: "./section?word=" + word,
 		method: "GET",
 		success : function(result) {
 			$("#section_container").html(result);
@@ -78,8 +83,9 @@ $(".keyWord").click(function() {
 	var value = $(this).text();
 	
 	loadSection(value);
-	
 });
+
+loadSection();
 
 	
 </script>

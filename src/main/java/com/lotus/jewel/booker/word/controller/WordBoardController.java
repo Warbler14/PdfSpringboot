@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,10 +69,18 @@ public class WordBoardController {
 		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
 		
 		String keyWord = word.getWord();
-		logger.info("keyWord " + keyWord);
+		logger.info("keyWord : " + keyWord);
 		
-		String searchWord = keyWord.split(" ")[0].trim();
-		Word wordDetail = wordService.getWord(searchWord);
+		Word wordDetail = null;
+		
+		if(StringUtils.hasLength(keyWord)) {
+			String searchWord = keyWord.split(" ")[0].trim();
+			wordDetail = wordService.getWord(searchWord);			
+		} else {
+			wordDetail = new Word();
+			wordDetail.setLank(2);
+			wordDetail.setDifficulty(1);
+		}
 		
 		model.addAttribute("wordDetail", wordDetail);
 		
@@ -79,26 +88,35 @@ public class WordBoardController {
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public @ResponseBody Result<Map<String, String>> post(HttpServletRequest reqest,
+	public @ResponseBody Result<Word> post(HttpServletRequest reqest,
 			@ModelAttribute Word word
 //			@RequestParam Map<String,String> map
 			) throws IOException {
 		
+		if(!StringUtils.hasLength(word.getWord())) {
+			Result<Word> resultValue = new Result<Word>(null);
+			resultValue.fail();
+			resultValue.setMessage("word is empty");
+			
+			return resultValue;
+		}
+
 		String formMethod = reqest.getParameter("formMethod");
-		
 		logger.info("formMethod : " +  formMethod);
 		
+		Word result = null;
 		if("PUT".equals(formMethod)) {
-			wordService.putWord(word);
+			int putResult = wordService.putWord(word);
+			if(putResult == 1) {
+				Word savedWord = wordService.getWord(word.getWord());
+				result = savedWord;
+			}
 			
 		} else if("DELETE".equals(formMethod)) {
 			wordService.removeWord(word);
 		}
 		
-		Map<String, String> test = new HashMap<>();
-		test.put("message", new Date().toString());
-		
-		return new Result<Map<String, String>>(test);
+		return new Result<Word>(result);
 	}
 	
 	@GetMapping("/inputWord")

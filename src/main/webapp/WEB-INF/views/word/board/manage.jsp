@@ -68,7 +68,6 @@
 
 		<div id="word_list_container">
 			<p>wordList</p>
-			<%-- <jsp:include page="section.jsp"/> --%>
 		</div>
 		<!-- end NAV -->
 	</div>
@@ -76,7 +75,6 @@
 	<div id="section">
 		<div id="section_container">
 			<p>section</p>
-			<%-- <jsp:include page="section.jsp"/> --%>
 		</div>
 		
 	</div>
@@ -128,6 +126,18 @@ var wordList = function(pageNumber) {
 
 $("#btn-search").click(function() {
 	wordList(1);
+});
+
+$("#search-header").keydown(function() {
+	if (event.keyCode === 13) {
+		wordList(1);
+	}
+});
+
+$("#search-word").keydown(function() {
+	if (event.keyCode === 13) {
+		wordList(1);
+	}
 });
 
 $("#btn-input-word").click(function() {

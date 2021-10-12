@@ -43,6 +43,16 @@ public class Result <T>{
 	public void setData(T data) {
 		this.data = data;
 	}
+	
+	public void success() {
+		this.status = true;
+		this.message = "success";
+	}
+	
+	public void fail() {
+		this.status = false;
+		this.message = "fail";
+	}
 
 	@Override
 	public String toString() {

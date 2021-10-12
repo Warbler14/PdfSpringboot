@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lotus.jewel.booker.model.PagingForSqlite;
 
 public class Word extends PagingForSqlite implements Serializable{
 
+	@JsonIgnore
 	private static final long serialVersionUID = -6360119559242183023L;
 
 	private String word;
@@ -111,6 +113,7 @@ public class Word extends PagingForSqlite implements Serializable{
 		this.modifyDatetime = modifyDatetime;
 	}
 	
+	@JsonIgnore
 	public Word getThis() {
 		return this;
 	}

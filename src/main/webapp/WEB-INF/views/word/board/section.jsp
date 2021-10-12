@@ -24,7 +24,7 @@
 	}
 </style>
 <div>
-<c:if test="${wordDetail.word != null }">
+
 	<form:form id="sectionForm" action="./update">
 		<input type="hidden" name="formMethod" id="formMethod" value="PUT"/>
 		
@@ -33,8 +33,17 @@
 				<p>단어</p>
 			</div>
 			<div class="valueBox">
-				<input type="text" name="updateWord" value="${wordDetail.word}" size="100"/>
-				<input type="hidden" name="word" value="${wordDetail.word}"/><br/>
+				
+				<c:choose>
+					<c:when test="${wordDetail.word != null }">
+						<input type="text" name="updateWord" value="${wordDetail.word}" size="100"/>
+						<input type="hidden" name="word" value="${wordDetail.word}"/><br/>
+					</c:when>
+					<c:otherwise>
+						<input type="text" name="word" size="100"/>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			<div class="end"></div>
 		</div>
@@ -69,17 +78,20 @@
 			<div class="end"></div>
 		
 			<button type="button" id="btn-save" >save</button>
-			<button type="button" id="btn-delete" >delete</button>
+			<c:if test="${wordDetail.word != null }">
+				<button type="button" id="btn-delete" >delete</button>
+				<button type="button" id="btn-new" >new</button>
+			</c:if>
 		</div>
 	</form:form>
-</c:if>
+
 	
 <script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
 });
 
-var ajaxSubmit = function(caller) {
+var ajaxSubmit = function() {
 	var formData = $("#sectionForm").serialize();
 	var action = $("#sectionForm").attr("action");
 	console.log(action);
@@ -91,9 +103,11 @@ var ajaxSubmit = function(caller) {
         success : function(result) {
             console.log(result);
             if(result.status) {
-            	if(caller != undefined) {
-	            	caller();        		
-            	}
+            	var word = result.data.word;
+            	loadSection(word);
+            	
+            } else {
+            	alert(result.message);
             }
         }, // success 
 
@@ -108,10 +122,10 @@ var locationReload = function() {
 }
 
 $("#btn-save").click(function(e) {
-	//e.preventDefault();
-	//if(!confirm('정말로 저장하시겠습니까?')) return;
+	e.preventDefault();
+	if(!confirm('정말로 저장하시겠습니까?')) return;
 	$("#sectionForm #formMethod").val("PUT");
-	ajaxSubmit(wordList);
+	ajaxSubmit();
 });
 
 $("#btn-delete").click(function(e) {
@@ -119,10 +133,13 @@ $("#btn-delete").click(function(e) {
 	if(!confirm('정말로 삭제하시겠습니까?')) return;
 	$("#sectionForm #formMethod").val("DELETE");
 	//$('#sectionForm')[0].submit();
-	ajaxSubmit(locationReload);
+	ajaxSubmit();
 	
 });
 
+$("#btn-new").click(function(e) {
+	loadSection();
+});
 	
 </script>
 </div>
