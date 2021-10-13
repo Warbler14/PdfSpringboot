@@ -19,11 +19,6 @@
 		background-color:lightgrey;
 		height:100px;
 	}
-	#nav0 {
-		background-color:#b9e3b4;
-		height:100px;
-		padding-top:10px;
-	}
 	#nav {
 		background-color:#9ce7e7;
 		margin-left:100px;
@@ -47,22 +42,19 @@
 	<div id="header">
 		<h2>Word Board</h2>
 	</div>
-	
-	<div id="nav0">
-		<h2>inputs</h2>
-		<div style="margin-left: 20px;">
-			<input type="text" id="inputWord" />
-			<button type="button" id="btn-input-word" >input</button>
-		</div>
-			
-	</div>
-	
+		
 	<div id="nav">
 		<div>
 			<div>
-				<span>header </span><input type="text" id="search-header" value="${word.header}" maxlength="1"/>
-				<span>word   </span><input type="text" id="search-word" value="${word.word}"/>
-				<button type="button" id="btn-search" >search</button>
+				<div>
+					<span>lank </span><input type="text" id="search-lank" value="2" />
+					<span>difficulty </span><input type="text" id="search-difficulty" value="" />
+				</div>
+				<div>
+					<span>header </span><input type="text" id="search-header" value="${word.header}" maxlength="1"/>
+					<span>word   </span><input type="text" id="search-word" value="${word.word}"/>
+					<button type="button" id="btn-search" >search</button>
+				</div>
 			</div>
 		</div>
 
@@ -103,12 +95,20 @@ var wordList = function(pageNumber) {
 	var urls = "./wordList?currentPage=" + pageNumber;
 	var header = $("#search-header").val();
 	var word = $("#search-word").val();
+	var lank = $("#search-lank").val();
+	var difficulty = $("#search-difficulty").val();
 	
 	if(header != '') {
 		urls = urls + "&header=" + header.charAt(0) ;
 	}
 	if(word != '') {
 		urls = urls + "&word=" + word;
+	}
+	if(lank != '') {
+		urls = urls + "&lank=" + lank;
+	}
+	if(difficulty != '') {
+		urls = urls + "&difficulty=" + difficulty;
 	}
 	
 	$.ajax({
