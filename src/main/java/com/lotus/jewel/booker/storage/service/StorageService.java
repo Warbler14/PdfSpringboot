@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.WordVto;
 import com.lotus.jewel.booker.word.service.WordService;
 
 @Service
@@ -130,7 +130,7 @@ public class StorageService {
 						continue;
 					}
 					
-					Word word = new Word();
+					WordVto word = new WordVto();
 					word.setWord(text.toLowerCase());
 					
 					int result = wordService.addWord(word);

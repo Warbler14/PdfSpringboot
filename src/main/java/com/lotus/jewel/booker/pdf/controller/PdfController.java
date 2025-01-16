@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lotus.jewel.booker.pdf.converter.PrintConvertStore;
+import com.lotus.jewel.booker.pdf.model.Pdf;
 import com.lotus.jewel.booker.pdf.service.PdfService;
-import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.WordVto;
 import com.lotus.jewel.booker.word.service.WordService;
 
 
@@ -38,7 +40,11 @@ public class PdfController {
 		String filePath = "/Users/kook/Documents/it books/pythonbasics.pdf";
 		System.out.println("filePath : " + filePath);
 		
-		pdfService.readPdf(filePath);
+		Pdf<Object, Object> pdf = new Pdf<Object, Object>();
+		pdf.setFilePath(filePath);
+		pdf.setConvertedStore(new PrintConvertStore());
+		
+		pdfService.readPdf(pdf);
 		
 		
 		return mav;
@@ -48,7 +54,7 @@ public class PdfController {
 	public ModelAndView test02( Model model) {
 		ModelAndView mav = new ModelAndView(SUB_PATH + "test02");
 		
-		List<Word> wordList = null;
+		List<WordVto> wordList = null;
 		try {
 			wordList = wordService.getAll();
 			

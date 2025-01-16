@@ -2,6 +2,7 @@
 
 ### git command
 cd `this project`
+git init
 git rm -r --cached .
 git add .
 git commit -m "commit message"
@@ -16,3 +17,7 @@ https://dzone.com/articles/pdfbox-java-library-to-extract-content-from-a-pdf
 
 ### bootstrap 4
 https://www.w3schools.com/bootstrap4/bootstrap_containers.asp
+
+
+### cache
+https://github.com/ben-manes/caffeine

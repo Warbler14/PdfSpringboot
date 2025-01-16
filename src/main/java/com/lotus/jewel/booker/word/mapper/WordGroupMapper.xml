@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lotus.jewel.booker.word.mapper.WordGroupMapper">
+	
+	<select id="selectWordGroupListForPage" resultType="com.lotus.jewel.booker.word.model.WordGroupVto">
+		select
+			group_id
+			, description
+			, regist_datetime
+			, modify_datetime
+		<where>
+			<if test="groupId != null">
+				where group_id = #{groupId}
+			</if>
+		</where>
+		order by modify_datetime desc
+		limit #{start}, #{offset}
+	</select>
+	
+	<select id="countWordGroup" resultType="int">
+		select count(*)
+		from word_group
+		<where>
+			<if test="groupId != null">
+				where group_id = #{groupId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectWordGroupList" resultType="com.lotus.jewel.booker.word.model.WordGroupVto">
+		select
+			group_id
+			, description
+			, regist_datetime
+			, modify_datetime
+		from word_group
+		limit #{start}, #{offset}
+	</select>
+	
+	<select id="selectWordGroup" resultType="com.lotus.jewel.booker.word.model.WordGroupVto">
+		select
+			group_id
+			, description
+			, regist_datetime
+			, modify_datetime
+		where group_id = #{groupId}
+	</select>
+		
+	<insert id="insertWordGroup">
+		insert into word_group (
+			group_id
+			, description
+			, regist_datetime
+			, modify_datetime
+		) values (
+			#{groupId}
+			, #{description}
+			, #{registDatetime}
+			, #{modifyDatetime}
+		)
+	</insert>
+	
+	<update id="updateWordGroup">
+		update word_group
+		<set>
+			description = #{description},
+			modify_datetime = #{modifyDatetime}
+		</set>
+		where group_id = #{groupId}
+	</update>
+	
+	<delete id="deleteWordGroup">
+		delete from word_group
+		where group_id = #{groupId}
+	</delete>
+	
+</mapper>

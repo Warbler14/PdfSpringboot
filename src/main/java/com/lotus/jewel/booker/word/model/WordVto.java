@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lotus.jewel.booker.model.PagingForSqlite;
 
-public class Word extends PagingForSqlite implements Serializable{
+public class WordVto extends PagingForSqlite implements Serializable{
 
 	@JsonIgnore
 	private static final long serialVersionUID = -6360119559242183023L;
@@ -26,11 +26,13 @@ public class Word extends PagingForSqlite implements Serializable{
 	
 	private Integer difficulty;
 	
+	private Integer groupId;
+	
 	private String registDatetime;
 	
 	private String modifyDatetime;
 
-	public Word() {
+	public WordVto() {
 		super();
 	}
 
@@ -97,6 +99,14 @@ public class Word extends PagingForSqlite implements Serializable{
 		this.difficulty = difficulty;
 	}
 
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
 	public String getRegistDatetime() {
 		return registDatetime;
 	}
@@ -114,14 +124,14 @@ public class Word extends PagingForSqlite implements Serializable{
 	}
 	
 	@JsonIgnore
-	public Word getThis() {
+	public WordVto getThis() {
 		return this;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Word [word=");
+		builder.append("WordVto [word=");
 		builder.append(word);
 		builder.append(", updateWord=");
 		builder.append(updateWord);
@@ -135,6 +145,8 @@ public class Word extends PagingForSqlite implements Serializable{
 		builder.append(lank);
 		builder.append(", difficulty=");
 		builder.append(difficulty);
+		builder.append(", groupId=");
+		builder.append(groupId);
 		builder.append(", registDatetime=");
 		builder.append(registDatetime);
 		builder.append(", modifyDatetime=");

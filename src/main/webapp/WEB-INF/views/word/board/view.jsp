@@ -19,22 +19,38 @@
 		background-color:lightgrey;
 		height:100px;
 	}
-	#nav {
+	#word {
 		background-color:#9ce7e7;
 		margin-left:100px;
 		/* width: 600px; */
 		float:left;
 	}
-	#section {
-		float:left;
+	#wordInfo {
 		padding:10px;
+		float:left;
+	}
+	#wordGroup {
+		margin-top:10px;
+		background-color:#9ce7e7;
+		margin-left:100px;
+		/* width: 600px; */
+		float:left;
+	}
+	#section2 {
+		margin-top:10px;
+		margin-left:10px;
+		background-color:#9cb3e7;
+		float:left;
 	}
 	#footer {
 		background-color:#FFCC00;
 		height:100px;
 		clear:both;
 	}
-	#header, #nav, #section, #footer { text-align:center }
+	.clearBoth {
+		clear:both;
+	}
+	#header, #nav, #wordInfo, #footer { text-align:center }
 	#header, #footer { line-height:100px; }
 	
 </style>
@@ -43,34 +59,40 @@
 		<h2>Word Board</h2>
 	</div>
 		
-	<div id="nav">
+	<div id="word">
 		<div>
 			<div>
-				<div>
-					<span>lank </span><input type="text" id="search-lank" value="2" />
-					<span>difficulty </span><input type="text" id="search-difficulty" value="" />
-				</div>
-				<div>
-					<span>header </span><input type="text" id="search-header" value="${word.header}" maxlength="1"/>
-					<span>word   </span><input type="text" id="search-word" value="${word.word}"/>
-					<button type="button" id="btn-search" >search</button>
-				</div>
+				<span>lank </span><input type="text" id="search-lank" value="2" />
+				<span>difficulty </span><input type="text" id="search-difficulty" value="" />
+			</div>
+			<div>
+				<span>header </span><input type="text" id="search-header" value="${word.header}" maxlength="1"/>
+				<span>word   </span><input type="text" id="search-word" value="${word.word}"/>
+				<button type="button" id="btn-search" >search</button>
 			</div>
 		</div>
 
 		<div id="word_list_container">
 			<p>wordList</p>
 		</div>
-		<!-- end NAV -->
+		<!-- end WORD -->
 	</div>
 	
-	<div id="section">
-		<div id="section_container">
-			<p>section</p>
+	<div id="wordInfo">
+		<div id="wordInfo_container">
+			<p>wordInfo</p>
 		</div>
-		
 	</div>
 	
+<%--	
+	<div class="clearBoth"></div>
+	<div id="wordGroup">
+		<div id="wordGroup_list_container">
+			<p>wordGroupList</p>
+		</div>
+	</div>
+ --%>	
+
 	<div id="footer">
 		<p>footer</p>
 	</div>
@@ -124,6 +146,32 @@ var wordList = function(pageNumber) {
 	});
 }
 
+/*
+var wordGroupList = function(pageNumber) {
+	$("#wordGroup_list_container").html('');
+	
+	if(pageNumber == undefined) {
+		pageNumber = currentPageNumber;
+	} else {
+		currentPageNumber = pageNumber;
+	}
+	
+	var urls = "./wordGroupList?currentPage=" + pageNumber;
+	
+	$.ajax({
+		url: urls,
+		method: "GET",
+		success : function(result) {
+			$("#wordGroup_list_container").html(result);
+		},
+		error : function(xhr, status, error) {
+			console.log("에러발생 :  " + error);
+			
+		}
+	});
+}
+*/
+
 $("#btn-search").click(function() {
 	wordList(1);
 });
@@ -160,6 +208,7 @@ $("#btn-input-word").click(function() {
 });
 
 wordList(1);
+//wordGroupList(1);
 	
 </script>
 	

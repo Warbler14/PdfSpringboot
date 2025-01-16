@@ -4,24 +4,25 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.WordVto;
 
 @Mapper
 public interface WordMapper {
 
-	public List<Word> selectAll();
+	public List<WordVto> selectAll();
 	
-	public List<Word> selectWordListForPage(Word word);
+	public List<WordVto> selectWordListForPage(WordVto word);
 	
-	public int countWord(Word word);
+	public int countWord(WordVto word);
 	
-	public List<Word> selectWordListForLank(Word word);
+	public List<WordVto> selectWordListForLank(WordVto word);
 	
-	public Word selectWord(String word);
+	public WordVto selectWord(String word);
 	
-	public int insertWord(Word word);
+	public int insertWord(WordVto word);
 	
-	public int updateWord(Word word);
+	public int updateWord(WordVto word);
 	
-	public int deleteWord(Word word);
+	public int deleteWord(WordVto word);
+	
 }

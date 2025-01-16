@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lotus.jewel.booker.word.mapper.WorkbookMapper;
-import com.lotus.jewel.booker.word.model.Word;
-import com.lotus.jewel.booker.word.model.Workbook;
+import com.lotus.jewel.booker.word.model.WordVto;
+import com.lotus.jewel.booker.word.model.WorkbookVto;
 
 
 @Service
@@ -27,12 +27,12 @@ public class WorkbookService {
 	
 //	workbook ------------------------------------------------------------
 	
-	public Workbook getWorkbook(Workbook workbook) {
+	public WorkbookVto getWorkbook(WorkbookVto workbook) {
 		return workbookMapper.selectWorkbook(workbook);
 	}
 	
-	public List<Workbook> getWorkbookListForPage(Workbook workbook) throws Exception {
-		List<Workbook> resultList = workbookMapper.selectWorkbookListForPage(workbook);
+	public List<WorkbookVto> getWorkbookListForPage(WorkbookVto workbook) throws Exception {
+		List<WorkbookVto> resultList = workbookMapper.selectWorkbookListForPage(workbook);
 		return resultList;
 	}
 	
@@ -40,7 +40,7 @@ public class WorkbookService {
 		return workbookMapper.countWorkbook();
 	}
 	
-	public int addWorkbook(Workbook workbook) {
+	public int addWorkbook(WorkbookVto workbook) {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String datetime = sdf.format(cal.getTime());
@@ -49,7 +49,7 @@ public class WorkbookService {
 		
 		long start = System.currentTimeMillis();
 		
-		Workbook savedWorkbook = getWorkbook(workbook);
+		WorkbookVto savedWorkbook = getWorkbook(workbook);
 		
 		logger.debug("duration " + (System.currentTimeMillis() - start));
 		if(savedWorkbook == null) {
@@ -60,26 +60,26 @@ public class WorkbookService {
 		return 0;
 	}
 
-	public int removeWorkbook(Workbook workbook) {
+	public int removeWorkbook(WorkbookVto workbook) {
 		return workbookMapper.deleteWorkbook(workbook);
 	}
 	
 //	workpage ------------------------------------------------------------
 	
-	public Workbook getWorkpage(Workbook workbook) {
+	public WorkbookVto getWorkpage(WorkbookVto workbook) {
 		return workbookMapper.selectWorkpage(workbook);
 	}
 	
-	public List<Workbook> getWorkpageListForPage(Workbook workbook) throws Exception {
-		List<Workbook> resultList = workbookMapper.selectWorkpageListForPage(workbook);
+	public List<WorkbookVto> getWorkpageListForPage(WorkbookVto workbook) throws Exception {
+		List<WorkbookVto> resultList = workbookMapper.selectWorkpageListForPage(workbook);
 		return resultList;
 	}
 	
-	public int countWorkpage(Workbook workbook) {
+	public int countWorkpage(WorkbookVto workbook) {
 		return workbookMapper.countWorkpage(workbook);
 	}
 	
-	public int addWorkpage(Workbook workbook) {
+	public int addWorkpage(WorkbookVto workbook) {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String datetime = sdf.format(cal.getTime());
@@ -88,7 +88,7 @@ public class WorkbookService {
 		
 		long start = System.currentTimeMillis();
 		
-		Workbook savedWorkpage = getWorkpage(workbook);
+		WorkbookVto savedWorkpage = getWorkpage(workbook);
 		
 		logger.debug("duration " + (System.currentTimeMillis() - start));
 		if(savedWorkpage == null) {
@@ -99,7 +99,7 @@ public class WorkbookService {
 		return 0;
 	}
 	
-	public int addWorkpageWords(Workbook workbook) {
+	public int addWorkpageWords(WorkbookVto workbook) {
 		
 		int max = 5;
 		int count = 0;
@@ -110,7 +110,7 @@ public class WorkbookService {
 		String datetime = sdf.format(cal.getTime());
 		
 		try {
-			Word selectWord = new Word();
+			WordVto selectWord = new WordVto();
 			selectWord.setLank(2);
 			
 			int total = wordService.getCountWord(selectWord);
@@ -119,16 +119,16 @@ public class WorkbookService {
 			
 			int lastPage = selectWord.getLastPage();
 
-			Workbook newWorkbook = new Workbook();
+			WorkbookVto newWorkbook = new WorkbookVto();
 			newWorkbook.setUserId("user");
 			
 			for (int page = 1 ; page < lastPage ; page++ ) {
-				List<Word> wordList = wordService.getWordListForLank(selectWord);
+				List<WordVto> wordList = wordService.getWordListForLank(selectWord);
 				for(int idx = 0; idx < wordList.size() ; idx++) {
-					Word w = wordList.get(idx);
+					WordVto w = wordList.get(idx);
 					newWorkbook.setWord(w.getWord());
 					
-					Workbook wb = workbookMapper.selectWorkpage(newWorkbook);
+					WorkbookVto wb = workbookMapper.selectWorkpage(newWorkbook);
 					if(wb == null) {
 						addDefaultWorkPage(workDay, w, datetime);
 						if(count++ >= max) {
@@ -147,8 +147,8 @@ public class WorkbookService {
 		return 0;
 	}
 	
-	private void addDefaultWorkPage(String workDay, Word word, String datetime) {
-		Workbook newWorkbook = new Workbook();
+	private void addDefaultWorkPage(String workDay, WordVto word, String datetime) {
+		WorkbookVto newWorkbook = new WorkbookVto();
 		newWorkbook.setWorkDay(workDay);
 		newWorkbook.setUserId("user");
 		newWorkbook.setWord(word.getWord());
@@ -158,7 +158,7 @@ public class WorkbookService {
 		addWorkpage(newWorkbook);
 	}
 	
-	public int removeWorkpage(Workbook workbook) {
+	public int removeWorkpage(WorkbookVto workbook) {
 		return workbookMapper.deleteWorkpage(workbook);
 	}
 }

@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lotus.jewel.booker.http.Result;
-import com.lotus.jewel.booker.word.model.Word;
-import com.lotus.jewel.booker.word.model.Workbook;
+import com.lotus.jewel.booker.word.model.WordVto;
+import com.lotus.jewel.booker.word.model.WorkbookVto;
 import com.lotus.jewel.booker.word.service.WordService;
 import com.lotus.jewel.booker.word.service.WorkbookService;
 
 
 @Controller
 @RequestMapping("/workbook")
-public class WorkbookController {
+public class WorkBookController {
 
-	private final static Logger logger = LoggerFactory.getLogger(WorkbookController.class);
+	private final static Logger logger = LoggerFactory.getLogger(WorkBookController.class);
 	
 	private final static String SUB_PATH = "word/workbook/";
 	
@@ -41,7 +41,7 @@ public class WorkbookController {
 	private WorkbookService workbookService;
 	
 	@GetMapping("manage")
-	public ModelAndView boardList(Workbook workbook, Model model) {
+	public ModelAndView boardList(WorkbookVto workbook, Model model) {
 		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "manage");
 		
@@ -53,7 +53,7 @@ public class WorkbookController {
 		model.addAttribute("paging", workbook.getPaging());
 		
 		try {
-			List<Workbook> workbookList = workbookService.getWorkbookListForPage(workbook);
+			List<WorkbookVto> workbookList = workbookService.getWorkbookListForPage(workbook);
 			model.addAttribute("workbookList", workbookList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class WorkbookController {
 	}
 	
 	@GetMapping("workpage")
-	public ModelAndView workpage(@ModelAttribute Workbook workbook, Model model) {
+	public ModelAndView workpage(@ModelAttribute WorkbookVto workbook, Model model) {
 		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "workpage");
 		
@@ -75,7 +75,7 @@ public class WorkbookController {
 		model.addAttribute("paging", workbook.getPaging());
 		
 		try {
-			List<Workbook> workpageList = workbookService.getWorkpageListForPage(workbook);
+			List<WorkbookVto> workpageList = workbookService.getWorkpageListForPage(workbook);
 			model.addAttribute("workpageList", workpageList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,14 +85,14 @@ public class WorkbookController {
 	}
 	
 	@GetMapping("section")
-	public ModelAndView section(Word word, Model model) {
+	public ModelAndView section(WordVto word, Model model) {
 		
 		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
 		
 		String keyWord = word.getWord();
 		logger.info("keyWord " + keyWord);
 		
-		Word wordDetail = wordService.getWord(word.getWord());
+		WordVto wordDetail = wordService.getWord(word.getWord());
 		
 		model.addAttribute("wordDetail", wordDetail);
 		
@@ -108,7 +108,7 @@ public class WorkbookController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String datetime = sdf.format(cal.getTime());
 		
-		Workbook workbook = new Workbook();
+		WorkbookVto workbook = new WorkbookVto();
 		workbook.setWorkDay(datetime);
 		workbook.setUserId("user");
 		
@@ -121,7 +121,7 @@ public class WorkbookController {
 	}
 	
 	@GetMapping("/getWords")
-	public @ResponseBody Result<Map<String, Object>> getWords(Workbook workbook) throws IOException {
+	public @ResponseBody Result<Map<String, Object>> getWords(WorkbookVto workbook) throws IOException {
 		
 		logger.info("getWords");
 		int resultCount = 0;

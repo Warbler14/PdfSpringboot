@@ -25,7 +25,7 @@
 </style>
 <div>
 
-	<form:form id="sectionForm" action="./update">
+	<form:form id="wordInfoForm" action="./update">
 		<input type="hidden" name="formMethod" id="formMethod" value="PUT"/>
 		
 		<div>
@@ -92,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 var ajaxSubmit = function() {
-	var formData = $("#sectionForm").serialize();
-	var action = $("#sectionForm").attr("action");
+	var formData = $("#wordInfoForm").serialize();
+	var action = $("#wordInfoForm").attr("action");
 	console.log(action);
 	$.ajax({
         cache : false,
@@ -124,15 +124,15 @@ var locationReload = function() {
 $("#btn-save").click(function(e) {
 	e.preventDefault();
 	if(!confirm('정말로 저장하시겠습니까?')) return;
-	$("#sectionForm #formMethod").val("PUT");
+	$("#wordInfoForm #formMethod").val("PUT");
 	ajaxSubmit();
 });
 
 $("#btn-delete").click(function(e) {
 	e.preventDefault();
 	if(!confirm('정말로 삭제하시겠습니까?')) return;
-	$("#sectionForm #formMethod").val("DELETE");
-	//$('#sectionForm')[0].submit();
+	$("#wordInfoForm #formMethod").val("DELETE");
+	//$('#wordInfoForm')[0].submit();
 	ajaxSubmit();
 	
 });

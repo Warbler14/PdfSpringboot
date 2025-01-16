@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import com.lotus.jewel.booker.model.PagingForSqlite;
 
-public class Workbook extends PagingForSqlite implements Serializable{
+public class WorkbookVto extends PagingForSqlite implements Serializable{
 
 	private static final long serialVersionUID = 6633050871064556064L;
 

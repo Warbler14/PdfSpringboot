@@ -4,34 +4,34 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.lotus.jewel.booker.word.model.Workbook;
+import com.lotus.jewel.booker.word.model.WorkbookVto;
 
 @Mapper
 public interface WorkbookMapper {
 
 //	workbook ------------------------------------------------------------
 	
-	public List<Workbook> selectWorkbookListForPage(Workbook workbook);
+	public List<WorkbookVto> selectWorkbookListForPage(WorkbookVto workbook);
 	
 	public int countWorkbook();
 	
-	public Workbook selectWorkbook(Workbook workbook);
+	public WorkbookVto selectWorkbook(WorkbookVto workbook);
 	
-	public int insertWorkbook(Workbook workbook);
+	public int insertWorkbook(WorkbookVto workbook);
 	
-	public int deleteWorkbook(Workbook workbook);
+	public int deleteWorkbook(WorkbookVto workbook);
 	
 //	workpage ------------------------------------------------------------
 	
-	public List<Workbook> selectWorkpageListForPage(Workbook workbook);
+	public List<WorkbookVto> selectWorkpageListForPage(WorkbookVto workbook);
 	
-	public int countWorkpage(Workbook workbook);
+	public int countWorkpage(WorkbookVto workbook);
 	
-	public Workbook selectWorkpage(Workbook workbook);
+	public WorkbookVto selectWorkpage(WorkbookVto workbook);
 	
-	public int insertWorkpage(Workbook workbook);
+	public int insertWorkpage(WorkbookVto workbook);
 	
-	public int updateWorkpage(Workbook workbook);
+	public int updateWorkpage(WorkbookVto workbook);
 	
-	public int deleteWorkpage(Workbook workbook);
+	public int deleteWorkpage(WorkbookVto workbook);
 }

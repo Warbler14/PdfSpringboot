@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lotus.jewel.booker.http.Result;
-import com.lotus.jewel.booker.word.model.Word;
+import com.lotus.jewel.booker.word.model.WordVto;
 import com.lotus.jewel.booker.word.service.WordService;
 
 
@@ -36,14 +36,14 @@ public class WordBoardController {
 	@Autowired
 	WordService wordService;
 	
-	@GetMapping("manage")
-	public ModelAndView manage(Word word, Model model) {
-		ModelAndView mav = new ModelAndView(SUB_PATH + "manage");
+	@GetMapping("view")
+	public ModelAndView view(WordVto word, Model model) {
+		ModelAndView mav = new ModelAndView(SUB_PATH + "view");
 		return mav;
 	}
 	
 	@GetMapping("wordList")
-	public ModelAndView wordList(Word word, Model model) {
+	public ModelAndView wordList(WordVto word, Model model) {
 		ModelAndView mav = new ModelAndView(SUB_PATH + "wordList");
 		
 		int total = wordService.getCountWord(word);
@@ -54,7 +54,7 @@ public class WordBoardController {
 		model.addAttribute("paging", word.getPaging());
 		
 		try {
-			List<Word> wordList = wordService.getWordListForPage(word);
+			List<WordVto> wordList = wordService.getWordListForPage(word);
 			model.addAttribute("wordList", wordList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,20 +63,41 @@ public class WordBoardController {
 		return mav;
 	}
 	
-	@GetMapping("section")
-	public ModelAndView section(Word word, Model model) {
-		ModelAndView mav = new ModelAndView(SUB_PATH + "section");
+	@GetMapping("wordGroupList")
+	public ModelAndView wordGroupList(WordVto word, Model model) {
+		ModelAndView mav = new ModelAndView(SUB_PATH + "wordGroupList");
+		
+		int total = wordService.getCountWord(word);
+		word.setTotal(total);
+		word.calcPage();
+		
+		
+		model.addAttribute("paging", word.getPaging());
+		
+		try {
+			List<WordVto> wordList = wordService.getWordListForPage(word);
+			model.addAttribute("wordList", wordList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
+	@GetMapping("wordInfo")
+	public ModelAndView wordInfo(WordVto word, Model model) {
+		ModelAndView mav = new ModelAndView(SUB_PATH + "wordInfo");
 		
 		String keyWord = word.getWord();
 		logger.info("keyWord : " + keyWord);
 		
-		Word wordDetail = null;
+		WordVto wordDetail = null;
 		
 		if(StringUtils.hasLength(keyWord)) {
 			String searchWord = keyWord.split(" ")[0].trim();
 			wordDetail = wordService.getWord(searchWord);			
 		} else {
-			wordDetail = new Word();
+			wordDetail = new WordVto();
 			wordDetail.setLank(2);
 			wordDetail.setDifficulty(1);
 		}
@@ -87,13 +108,13 @@ public class WordBoardController {
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public @ResponseBody Result<Word> post(HttpServletRequest reqest,
-			@ModelAttribute Word word
+	public @ResponseBody Result<WordVto> post(HttpServletRequest reqest,
+			@ModelAttribute WordVto word
 //			@RequestParam Map<String,String> map
 			) throws IOException {
 		
 		if(!StringUtils.hasLength(word.getWord())) {
-			Result<Word> resultValue = new Result<Word>(null);
+			Result<WordVto> resultValue = new Result<WordVto>(null);
 			resultValue.fail();
 			resultValue.setMessage("word is empty");
 			
@@ -103,11 +124,11 @@ public class WordBoardController {
 		String formMethod = reqest.getParameter("formMethod");
 		logger.info("formMethod : " +  formMethod);
 		
-		Word result = null;
+		WordVto result = null;
 		if("PUT".equals(formMethod)) {
 			int putResult = wordService.putWord(word);
 			if(putResult == 1) {
-				Word savedWord = wordService.getWord(word.getWord());
+				WordVto savedWord = wordService.getWord(word.getWord());
 				result = savedWord;
 			}
 			
@@ -115,11 +136,11 @@ public class WordBoardController {
 			wordService.removeWord(word);
 		}
 		
-		return new Result<Word>(result);
+		return new Result<WordVto>(result);
 	}
 	
 	@GetMapping("/inputWord")
-	public @ResponseBody Result<Map<String, Object>> inputWord(Word word) throws IOException {
+	public @ResponseBody Result<Map<String, Object>> inputWord(WordVto word) throws IOException {
 		
 		logger.info("inputWord");
 		int resultCount = 0;

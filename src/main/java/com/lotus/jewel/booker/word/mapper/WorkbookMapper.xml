@@ -5,7 +5,7 @@
 
 	<!-- workbook -->
 	
-	<select id="selectWorkbookListForPage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+	<select id="selectWorkbookListForPage" resultType="com.lotus.jewel.booker.word.model.WorkbookVto">
 		select
 			work_day
 			, user_id
@@ -37,7 +37,7 @@
 		</where>
 	</select>
 	
-	<select id="selectWorkbook" resultType="com.lotus.jewel.booker.word.model.Workbook">
+	<select id="selectWorkbook" resultType="com.lotus.jewel.booker.word.model.WorkbookVto">
 		select
 			work_day
 			, user_id
@@ -76,7 +76,7 @@
 	
 	<!-- workpage -->
 	
-	<select id="selectWorkpageListForPage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+	<select id="selectWorkpageListForPage" resultType="com.lotus.jewel.booker.word.model.WorkbookVto">
 		select
 			work_day
 			, user_id
@@ -104,7 +104,7 @@
 		</if>
 	</select>
 	
-	<select id="selectWorkpage" resultType="com.lotus.jewel.booker.word.model.Workbook">
+	<select id="selectWorkpage" resultType="com.lotus.jewel.booker.word.model.WorkbookVto">
 		select
 			work_day
 			, user_id

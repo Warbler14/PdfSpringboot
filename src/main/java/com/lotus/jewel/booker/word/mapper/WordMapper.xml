@@ -3,7 +3,7 @@
 
 <mapper namespace="com.lotus.jewel.booker.word.mapper.WordMapper">
 
-	<select id="selectAll" resultType="com.lotus.jewel.booker.word.model.Word">
+	<select id="selectAll" resultType="com.lotus.jewel.booker.word.model.WordVto">
 		select
 			word
 			, header
@@ -11,12 +11,13 @@
 			, description
 			, lank
 			, difficulty
+			, group_id
 			, regist_datetime
 			, modify_datetime
 		from word
 	</select>
 
-	<select id="selectWordListForPage" resultType="com.lotus.jewel.booker.word.model.Word">
+	<select id="selectWordListForPage" resultType="com.lotus.jewel.booker.word.model.WordVto">
 		select
 			word
 			, header
@@ -24,6 +25,7 @@
 			, description
 			, lank
 			, difficulty
+			, group_id
 			, regist_datetime
 			, modify_datetime
 		from word
@@ -42,6 +44,9 @@
 			</if>
 			<if test="difficulty != null">
 				and difficulty = #{difficulty}
+			</if>
+			<if test="groupId != null">
+				and group_id = #{groupId}
 			</if>
 		</where>
 		order by header
@@ -67,10 +72,13 @@
 			<if test="difficulty != null">
 				and difficulty = #{difficulty}
 			</if>
+			<if test="groupId != null">
+				and group_id = #{groupId}
+			</if>
 		</where>
 	</select>
 	
-	<select id="selectWordListForLank" resultType="com.lotus.jewel.booker.word.model.Word">
+	<select id="selectWordListForLank" resultType="com.lotus.jewel.booker.word.model.WordVto">
 		select
 			word
 			, header
@@ -78,6 +86,7 @@
 			, description
 			, lank
 			, difficulty
+			, group_id
 			, regist_datetime
 			, modify_datetime
 		from word
@@ -90,7 +99,7 @@
 		limit #{start}, #{offset}
 	</select>
 	
-	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.Word">
+	<select id="selectWord" resultType="com.lotus.jewel.booker.word.model.WordVto">
 		select
 			word
 			, header
@@ -98,6 +107,7 @@
 			, description
 			, lank
 			, difficulty
+			, group_id
 			, regist_datetime
 			, modify_datetime
 		from word
@@ -114,6 +124,7 @@
 			, description
 			, lank
 			, difficulty
+			, group_id
 			, regist_datetime
 			, modify_datetime
 		) values (
@@ -123,6 +134,7 @@
 			, #{description}
 			, #{lank}
 			, #{difficulty}
+			, #{groupId}
 			, #{registDatetime}
 			, #{modifyDatetime}
 		)
@@ -136,6 +148,7 @@
 			<if test="description != null">description = #{description},</if>
 			<if test="lank != null">lank = #{lank},</if>
 			<if test="difficulty != null">difficulty = #{difficulty},</if>
+			<if test="groupId != null">group_id = #{groupId},</if>
 			modify_datetime = #{modifyDatetime}
 		</set>
 		where word = #{word}
